@@ -4,7 +4,13 @@ namespace App\Entity;
 
 class TirageAdapter
 {
-    private Deck $deck;
+    private $deck;
+
+
+    public function __construct($deck)
+    {
+        $this->deck = $deck;
+    }
 
 
     function tirageCarteAdapter():int

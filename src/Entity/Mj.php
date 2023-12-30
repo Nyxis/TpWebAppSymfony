@@ -14,7 +14,7 @@ class Mj implements Tirage
     /**
      * @param $name
      */
-    public function __construct($name, Deck $deck, Dice $dice, Coin $coin )
+    public function __construct(Deck $deck, Dice $dice, Coin $coin )
     {
         $this->name = "PapiJux";
         $this->deck = $deck;
@@ -24,18 +24,18 @@ class Mj implements Tirage
 
 
 
-    function diceTirage(Dice $dice): int
+    function diceTirage($dice): int
     {
         return $dice->jet();
     }
 
-    function coinTirage(Coin $coin): bool
+    function coinTirage($coin): bool
     {
         return $coin->lancer(4, 0);
 
     }
 
-    function deckTirage(TirageAdapter $tirageAdapter, Deck $deck): int
+    function deckTirage($tirageAdapter, $deck): int
     {
         return $tirageAdapter->tirageCarteAdapter($deck);
     }
