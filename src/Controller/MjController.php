@@ -16,6 +16,7 @@ class MjController extends AbstractController
     #[Route(path: '/mj/roll')]
     public function main(): Response
     {
+        //appel de la méthode statique portée par la classe Roller pour obtenir ce qui sera transmis à la vue
 
         $sortie = Roller::rollForCrit();
         if (str_contains($sortie, "fort")) $pic = "https://media3.giphy.com/media/a6OnFHzHgCU1O/giphy.gif?cid=ecf05e47mwyjo9ns3ljenwjmigcpw0phi0akpk5lhsmv2srz&ep=v1_gifs_search&rid=giphy.gif&ct=g" ;

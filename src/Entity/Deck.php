@@ -15,6 +15,7 @@ class Deck
         $this->color = [1, 2, 3, 4];
     }
 
+    //la méthode retourne une carte modélisée par un array
     function pioche(): array
     {
         $colorFlip = $this->color[rand(0, 3)];

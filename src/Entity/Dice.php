@@ -9,6 +9,7 @@ class Dice
     private array $faces;
 
 
+    // construction avec 3 possibiltés aléatoires de faces
     public function __construct()
     {
         $nombreDeFacesPossible = [

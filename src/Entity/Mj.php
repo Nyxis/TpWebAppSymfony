@@ -17,7 +17,7 @@ class Mj implements Tirage
     /**
      * @param $name
      */
-    public function __construct(Deck $deck, Dice $dice, Coin $coin)
+    public function __construct( $deck,  $dice,  $coin)
     {
         $this->name = "PapiJux";
         $this->deck = $deck;

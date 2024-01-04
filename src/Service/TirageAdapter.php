@@ -12,6 +12,8 @@ class TirageAdapter
         $this->deck = $deck;
     }
 
+    //adapter : convertit la carte piochée par l'instance de Deck (array) en valeur (int)
+    // comprise entre 1 et 52
 
     public static function tirageCarteAdapter($deck): int
     {

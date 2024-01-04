@@ -15,6 +15,7 @@ class Coin
         $this->lancesReussis = 0;
     }
 
+    //la récursivité de la méthode dépend du nombre de lancers réussis ou du nombre total de lancers
     function lancer($nbLancers, $lancersReussis): bool
     {
 
