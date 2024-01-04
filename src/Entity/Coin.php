@@ -11,7 +11,7 @@ class Coin
 
     public function __construct()
     {
-        $this->nbLancers = rand(2, 5);
+        $this->nbLancers = rand(1, 4);
         $this->lancesReussis = 0;
     }
 

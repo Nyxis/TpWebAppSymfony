@@ -26,7 +26,7 @@ class Dice
 
     public function jet(): int
     {
-        $result = $this->faces[rand(0, count($this->faces))];
+        $result = $this->faces[rand(0, count($this->faces)-1)];
         return $result;
     }
 

@@ -49,10 +49,14 @@ return $this->render('mj/roll.html.twig', ['sortie' => $sortie]);
                 $result = $masterMaster->getName() . "tire une carte et obient le score de " . $masterMaster->deckTirage();
                 break;
             case 2:
-                $result = $masterMaster->getName() . "lance un dé de " . count($masterMaster->getDice()->getFaces()) . "et obient le score de " . $masterMaster->diceTirage();
+                $result = $masterMaster->getName() . " lance un dé de " . count($masterMaster->getDice()->getFaces()) . " faces et obient le score de " . $masterMaster->diceTirage();
                 break;
             case 3:
-                $result  = $masterMaster->getName() . "lance une pièce" . $masterMaster->getCoin()->getNbLancers() . "fois et obient le score de " . $masterMaster->coinTirage();
+                if ($masterMaster->coinTirage() == 1)
+                $result  = $masterMaster->getName() . " lance une pièce " . $masterMaster->getCoin()->getNbLancers() . " fois et obient le score de  100";
+                else
+                $result  = $masterMaster->getName() . " lance une pièce " . $masterMaster->getCoin()->getNbLancers() . " fois et obient le score de  0";
+
                 break;
             default :
                 return ("oops, il ne s'est rien passé, le maitre doit dormir...");
