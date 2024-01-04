@@ -46,14 +46,11 @@ class MjController extends AbstractController
                 $result = $masterMaster->getName() . " lance un dé de " . count($masterMaster->getDice()->getFaces()) . " faces et obient le score de " . $score;
                 break;
             case 3:
-                if ($masterMaster->coinTirage() == 1) {
-                    $score = 100;
-                } else {
-                    $score = 0;
+                $masterMaster->coinTirage() == 1 ? $score = 100
+                                                 : $score = 0;
 
-                }
                 $result = $masterMaster->getName() . " lance une pièce " .
-                    $masterMaster->getCoin()->getNbLancers() . " fois et obient le score de " . $score;
+                $masterMaster->getCoin()->getNbLancers() . " fois et obient le score de " . $score;
 
                 break;
             default :
