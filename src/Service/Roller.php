@@ -12,7 +12,7 @@ class Roller
     public static function rollForCrit(): string
     {
 
-        $critRate = null;
+
         $deck = new Deck();
         $dice = new Dice();
         $coin = new Coin();
