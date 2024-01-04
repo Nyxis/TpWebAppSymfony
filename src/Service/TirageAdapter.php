@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity;
+namespace App\Service;
 
 class TirageAdapter
 {
@@ -13,13 +13,11 @@ class TirageAdapter
     }
 
 
-    function tirageCarteAdapter():int
+    public static function tirageCarteAdapter($deck):int
     {
         $topcardValue = 1;
-        $topcard = $this->deck->pioche();
-        foreach ($topcard as $card) {
-            $topcardValue *= $card();
-        }
+        $topcard = $deck->pioche();
+        $topcardValue = $deck->pioche()[0] *  $deck->pioche()[1];
             return $topcardValue;
 
     }

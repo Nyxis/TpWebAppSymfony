@@ -9,9 +9,9 @@ class Coin
     private int $lancesReussis;
     private int $nbLancers;
 
-    public function __construct($nbLancers)
+    public function __construct()
     {
-        $this->nbLancers = $nbLancers;
+        $this->nbLancers = rand(2, 5);
         $this->lancesReussis = 0;
     }
 
@@ -27,6 +27,11 @@ class Coin
         elseif ($lancersReussis == $nbLancers) return true;
         else return $this->lancer($nbLancers, $lancersReussis);
 
-
     }
+
+    public function getNbLancers(): int
+    {
+        return $this->nbLancers;
+    }
+
 }

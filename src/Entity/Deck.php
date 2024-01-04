@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use mysql_xdevapi\Result;
+
 class Deck
 {
 
@@ -17,11 +19,10 @@ class Deck
 
     function pioche(): array
     {
-        $this->topCard = [
-            [$this->color[rand(0,3)]],
-            [$this->cardRanks[rand(0,12)]]
-        ];
-        return $this->topCard;
+        $colorFlip = $this->color[rand(0,3)];
+        $valueFlip = $this->cardRanks[rand(0,12)];
+        $result = [$colorFlip,$valueFlip];
+        return $result;
     }
 
 }

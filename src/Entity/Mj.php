@@ -2,6 +2,9 @@
 
 namespace App\Entity;
 
+use App\Service\Tirage;
+use App\Service\TirageAdapter;
+
 class Mj implements Tirage
 
 {
@@ -24,19 +27,40 @@ class Mj implements Tirage
 
 
 
-    function diceTirage($dice): int
+    function diceTirage(): int
     {
-        return $dice->jet();
+        return $this->dice->jet();
     }
 
-    function coinTirage($coin): bool
+    function coinTirage(): bool
     {
-        return $coin->lancer(4, 0);
+        return $this->coin->lancer(4, 0);
 
     }
 
-    function deckTirage($tirageAdapter, $deck): int
+    function deckTirage(): int
     {
-        return $tirageAdapter->tirageCarteAdapter($deck);
+        return TirageAdapter::tirageCarteAdapter($this->deck);
     }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function getDeck(): Deck
+    {
+        return $this->deck;
+    }
+
+    public function getDice(): Dice
+    {
+        return $this->dice;
+    }
+
+    public function getCoin(): Coin
+    {
+        return $this->coin;
+    }
+
 }
