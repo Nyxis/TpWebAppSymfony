@@ -17,14 +17,13 @@ class Mj implements Tirage
     /**
      * @param $name
      */
-    public function __construct(Deck $deck, Dice $dice, Coin $coin )
+    public function __construct(Deck $deck, Dice $dice, Coin $coin)
     {
         $this->name = "PapiJux";
         $this->deck = $deck;
         $this->dice = $dice;
         $this->coin = $coin;
     }
-
 
 
     function diceTirage(): int

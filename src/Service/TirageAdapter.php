@@ -13,12 +13,12 @@ class TirageAdapter
     }
 
 
-    public static function tirageCarteAdapter($deck):int
+    public static function tirageCarteAdapter($deck): int
     {
         $topcardValue = 1;
         $topcard = $deck->pioche();
-        $topcardValue = $deck->pioche()[0] *  $deck->pioche()[1];
-            return $topcardValue;
+        $topcardValue = $deck->pioche()[0] * $deck->pioche()[1];
+        return $topcardValue;
 
     }
 }
