@@ -33,7 +33,7 @@ class Mj implements Tirage
 
     function coinTirage(): bool
     {
-        return $this->coin->lancer(4, 0);
+        return $this->coin->lancer($this->coin->getNbLancers(), 0);
 
     }
 

@@ -2,23 +2,16 @@
 
 namespace App\Service;
 
+use App\Entity\Deck;
+
 class TirageAdapter
 {
-    private $deck;
 
 
-    public function __construct($deck)
-    {
-        $this->deck = $deck;
-    }
-
-    //adapter : convertit la carte piochée par l'instance de Deck (array) en valeur (int)
-    // comprise entre 1 et 52
-
-    public static function tirageCarteAdapter($deck): int
+    public static function tirageCarteAdapter(Deck $deck): int
     {
         $topcardValue = 1;
-        $topcard = $deck->pioche();
+//        $topcard = $deck->pioche();
         $topcardValue = $deck->pioche()[0] * $deck->pioche()[1];
         return $topcardValue;
 

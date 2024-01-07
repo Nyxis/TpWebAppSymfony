@@ -29,12 +29,12 @@ class Roller
                 $result = $masterMaster->getName() . " tire une carte et obient le score de " . $score;
                 break;
             case 2:
-                $critRate = rand( 1, 17);
+                $critRate = rand( 1, 10);
                 $score = $masterMaster->diceTirage();
                 $result = $masterMaster->getName() . " lance un dé de " . count($masterMaster->getDice()->getFaces()) . " faces et obient le score de " . $score;
                 break;
             case 3:
-                $critRate = rand( 0,1);
+                $critRate = 1;
                 $masterMaster->coinTirage() == 1 ? $score = 100
                     : $score = 0;
 
