@@ -3,12 +3,12 @@ controllers:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
-controllers:
-    resource:
-        path: ../src/Controller/
-        namespace: App\Controller
-    type: attribute
+    
 # config/routes.yaml
 roll:
     path: /roll
     controller: App\Controller\RollController::roll
+
+hello_world:
+    path: /hello
+    controller: App\Controller\HelloController::hello
