@@ -4,6 +4,6 @@ controllers:
         namespace: App\Controller
     type: attribute
     
-app_login:
-    path: /login
-    controller: App\Controller\LoginController::login
+login_check:
+    path: /login_check
+    methods: ['POST']
