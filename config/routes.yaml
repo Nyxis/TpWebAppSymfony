@@ -13,3 +13,10 @@ roll:
 hello_world:
     path: /hello
     controller: App\Controller\HelloController::hello
+login:
+    path: /login
+    controller: App\Controller\LoginController::login
+login_check:
+    path: /login_check
+    controller: App\Controller\SecurityController::loginCheck
+    methods: [POST]
