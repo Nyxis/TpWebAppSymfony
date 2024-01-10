@@ -71,6 +71,12 @@
         "symfony/polyfill-php80": "*",
         "symfony/polyfill-php81": "*"
     },
+<<<<<<< HEAD
+=======
+        "symfony/polyfill-php81": "*",
+        "symfony/polyfill-php82": "*"
+    },
+>>>>>>> 33f80fb (commit)
     "scripts": {
         "auto-scripts": {
             "cache:clear": "symfony-cmd",
