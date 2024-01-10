@@ -10,42 +10,27 @@
 
 
 
-{#<form action="/auth/login_check" method="post">#}
-
-
-{#    <div class="container">#}
-{#        <label for="username"><b>Username</b>#}
-{#        <input type="text" placeholder="Enter Username"  required></label>#}
-
-{#        <label for="password"><b>Password</b>#}
-{#        <input type="password" placeholder="Enter Password"  required></label>#}
-
-{#        <button type="submit">Login</button>#}
-{#        <label>#}
-{#            <input type="checkbox" checked="checked" name="remember"> Remember me#}
-{#        </label>#}
-{#    </div>#}
-
-
-{#</form>#}
 {% block body %}
 
-{#    {{ form_start(form,{action:path('/auth/login_check')}) }}#}
 
-{#    <div class="row">#}
-{#        <div class="col">#}
-{#            {{ form_row(form.username) }}#}
-{#        </div>#}
-{#        <div class="col" id="some-custom-id">#}
-{#            {{ form_row(form.password) }}#}
-{#        </div>#}
-{#    </div>#}
-{#    {{ form_end(form) }}#}
     <div>
-    {{ form(form) }}
+        {{ form(form) }}
     </div>
 {% endblock %}
 
 
 </body>
 </html>
+
+
+{#    {{ form_start(form,{action:path('/auth/login_check')}) }} #}
+
+    {#    <div class="row"> #}
+    {#        <div class="col"> #}
+    {#            {{ form_row(form.username) }} #}
+    {#        </div> #}
+    {#        <div class="col" id="some-custom-id"> #}
+    {#            {{ form_row(form.password) }} #}
+    {#        </div> #}
+    {#    </div> #}
+    {#    {{ form_end(form) }} #}
