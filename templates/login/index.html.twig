@@ -4,7 +4,7 @@
 
 {% block body %}
 
-<form action="{{ path('app_login_check')}}" >
+<form action="{{ path('app_login_check')}}" method="post">
     <label for="uname"><b>Username</b></label>
     <input type="text" placeholder="Enter Username" name="uname" required>
 
