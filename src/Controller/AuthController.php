@@ -9,6 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -20,7 +21,6 @@ use Symfony\Component\Routing\Annotation\Route;
 class AuthController extends AbstractController
 {
     #[Route(path: '/auth/login')]
-
     public function login(Request $request): Response
     {
 
@@ -28,12 +28,34 @@ class AuthController extends AbstractController
 
         $form = $this->createFormBuilder($loggerObj)
             ->setMethod('POST')
+            ->setAction('/auth/login_check')
             ->add('username', EmailType::class)
             ->add('password', PasswordType::class)
             ->add('login', SubmitType::class, ['label' => 'se connecter'])
             ->getForm();
 
-        return $this->render('/auth/login.html.twig', ['form' =>$form->createView()]);
+        return $this->render('/auth/login.html.twig', ['form' => $form->createView()]);
+
+    }
+
+    #[Route(path: '/auth/login_check')]
+    public function loginCheck(Request $request): Response
+    {
+
+        if ($request->isMethod('POST')) return $this->render('/auth/success.html.twig', []);
+        else return $this->render('/auth/login.html.twig', []);
+
+
+    }
+
+    #[Route(path: '/auth/success')]
+    public function success(Request $request): Response
+    {
+        $wellDone = "tu es connecté";
+
+        return $this->render('/auth/success.html.twig', [
+            'welldone' => $wellDone
+        ]);
 
     }
 }
