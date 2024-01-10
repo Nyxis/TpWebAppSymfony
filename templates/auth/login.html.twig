@@ -10,7 +10,7 @@
 
 {% block body %}
 
-    {{ form_start(form) }}
+    {{ form_start(form,{action:path('auth/login_check')}) }}
 
     <div class="row">
         <div class="col">
