@@ -2,8 +2,7 @@
 
 {% block body %}
 	<h2>Login</h2>
-
-	{{ form_start(form) }}
+	{{ form_start(form, {'action': path(app_login)}) }}
 	{{ form_row(form.email) }}
 	{{ form_row(form.password) }}
 	<button type="submit">Login</button>

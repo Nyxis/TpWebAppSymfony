@@ -12,7 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class LoginController extends AbstractController
 {
-    #[Route('/login_check', name: 'app_login')]
+    #[Route('/login', name: 'app_login')]
     public function index(Request $request): Response
     {
         $form = $this->createForm(LoginFormType::class);
