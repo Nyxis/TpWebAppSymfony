@@ -5,6 +5,7 @@ namespace App\Controller;
 
 use App\Entity\LoggerClass;
 
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -26,7 +27,8 @@ class AuthController extends AbstractController
         $loggerObj = new LoggerClass();
 
         $form = $this->createFormBuilder($loggerObj)
-            ->add('username', TextType::class)
+            ->setMethod('POST')
+            ->add('username', EmailType::class)
             ->add('password', PasswordType::class)
             ->add('login', SubmitType::class, ['label' => 'se connecter'])
             ->getForm();
