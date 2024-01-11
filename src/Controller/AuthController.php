@@ -2,52 +2,78 @@
 
 namespace App\Controller;
 
-use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class AuthController extends AbstractController
 {
     #[Route(path: '/auth/login')]
-    public function login(FormFactoryInterface $formFactory, Request $request): Response
+    public function login(Request $request): Response
+    {
+//        dump($authenticationUtils->getLastAuthenticationError());
+
+        $go = "GO";
+
+        return $this->render('/auth/login.html.twig', ['go' => $go]);
+    }
+
+//    #[Route(path: '/auth/login_check')]
+//    public function loginCheck(Request $request): Response
+//    {
+//        printf("in the Checkcontroller");
+//        if ($request->isMethod('POST')) return $this->render('/auth/success.html.twig', []);
+//        else return $this->render('/auth/login.html.twig', []);
+//
+//    }
+
+    #[Route(path: '/auth/success')]
+    public function success(Request $request): Response
+    {
+        $wellDone = "welcome to Symfony";
+
+        return $this->render('/auth/success.html.twig', [
+            'welldone' => $wellDone
+        ]);
+
+    }
+
+    /*ADMIN PART*/
+
+
+    #[Route(path: '/admin/login')]
+    public function loginAdmin(FormFactoryInterface $formFactory, Request $request): Response
     {
 //        dump($authenticationUtils->getLastAuthenticationError());
 
         $form = $formFactory->createNamedBuilder('')
             ->setMethod('POST')
-            ->setAction('/auth/login_check')
+            ->setAction('/admin/login_check')
             ->add('_username', EmailType::class)
             ->add('_password', PasswordType::class)
             ->add('login', SubmitType::class, ['label' => 'se connecter'])
             ->getForm();
 
-        return $this->render('/auth/login.html.twig', ['form' => $form->createView()]);
+        return $this->render('/admin/login.html.twig', ['form' => $form->createView()]);
     }
 
-    #[Route(path: '/auth/login_check')]
-    public function loginCheck(Request $request): Response
+    #[Route(path: '/admin/login_check')]
+    public function loginAdminCheck(Request $request)
     {
-        printf("in the Checkcontroller");
-        if ($request->isMethod('POST')) return $this->render('/auth/success.html.twig', []);
-        else return $this->render('/auth/login.html.twig', []);
-
+        return $this->render('/admin/success.html.twig', []);
     }
 
-    #[Route(path: '/auth/success')]
-    public function success(Request $request): Response
+    #[Route(path: '/admin/success')]
+    public function successAdmin(Request $request): Response
     {
-        $wellDone = "tu es connecté";
 
-        return $this->render('/auth/success.html.twig', [
-            'welldone' => $wellDone
+        return $this->render('/admin/success.html.twig', [
+
         ]);
 
     }

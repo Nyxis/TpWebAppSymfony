@@ -8,21 +8,32 @@ security:
       memory:
         users:
           jojo@blublu.com: { password: '$2y$13$5NQG605Cej.bEIehOgcjHOdOrYh0dALXcR3/RReeYx2RVC3VZqfHO', roles: [ 'ROLE_ADMIN' ] }
-          blini@houmous.fr: { password: '$2y$13$6dCa1tgVYRtY3yR3mdk51.QRus8phz459lKtbcOBv1JurtXC8SoaG', roles: [ 'ROLE_ADMIN' ] }
+          blini@houmous.fr: { password: '$2y$13$6dCa1tgVYRtY3yR3mdk51.QRus8phz459lKtbcOBv1JurtXC8SoaG', roles: [ 'ROLE_USER' ] }
           test@test.fr: { password: '$2y$13$1wM0iJN1nQ6FNJnfnXr4SuwE6Qxgm7s4ZQCebRTGpR9FaiT.zpxei', roles: [ 'ROLE_ADMIN' ] }
 
   firewalls:
     dev:
       pattern: ^/(_(profiler|wdt)|css|images|js)/
       security: false
-    main:
-      lazy: true
+      
+    admin:
+
+      pattern: ^/admin
+      lazy: false
       provider: users_in_memory
       form_login:
-        login_path: /auth/login
-        check_path: /auth/login_check
+        login_path: /admin/login
+        check_path: /admin/login_check
         always_use_default_target_path: true
-        default_target_path: /auth/success
+        default_target_path: /admin/success
+    main:
+
+      lazy: true
+      pattern: ^/auth
+      provider: users_in_memory
+
+
+
 
       # activate different ways to authenticate
       # https://symfony.com/doc/current/security.html#the-firewall

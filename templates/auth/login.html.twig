@@ -6,17 +6,14 @@
     <title>Formulaire</title>
 </head>
 <body>
-<h1>connectez-vous</h1>
-
+<h1>connectez-vous sans compte</h1>
 
 
 {% block body %}
 
-
     <div>
-        {{ form(form) }}
+       <a href="/auth/success"> {{ go }}</a>
     </div>
-
 
 {% endblock %}
 
