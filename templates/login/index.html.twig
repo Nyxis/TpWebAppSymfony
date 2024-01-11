@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<div class="example-wrapper">
+    <h1>Hello form✅</h1>
+    <form  method="POST">
+        <div class="form-control">
+            <label for="email">Email</label>
+            <input type="text" id ="email">
+        </div>
+        <div class="form-control">
+            <label for="pwd">Password</label>
+            <input type="password" id ="pwd">
+        </div>
+        <div class="form-control">
+            <button type="submit">Submit</button>
+        </div>
+    </form>
+
+</div>
+{% endblock %}
