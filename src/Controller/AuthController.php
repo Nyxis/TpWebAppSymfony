@@ -73,9 +73,9 @@ class AuthController extends AbstractController
     #[Route(path: '/admin/success')]
     public function successAdmin(Request $request): Response
     {
-       $user = $this->getUser()->getUserIdentifier();
+       $userName = $this->getUser()->getUserIdentifier();
 
-        return $this->render('/admin/success.html.twig', ["username" => $user]);
+        return $this->render('/admin/success.html.twig', ["username" => $userName]);
 
     }
 }
