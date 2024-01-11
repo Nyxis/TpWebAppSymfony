@@ -1,5 +1,5 @@
 <?php
-namespace App\Entity;
+namespace App\Security;
 
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
@@ -7,7 +7,7 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-class User implements UserInterface
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -16,6 +16,9 @@ class User implements UserInterface
 
     #[ORM\Column(type: 'string', length: 180, unique: true)]
     private ?string $email;
+
+    #[ORM\Column(type: 'string', length: 255)]
+    private ?string $username;
 
     #[ORM\Column(type: 'json')]
     private array $roles = [];
@@ -27,7 +30,6 @@ class User implements UserInterface
     {
         return $this->id;
     }
-
     public function getEmail(): ?string
     {
         return $this->email;
@@ -36,6 +38,18 @@ class User implements UserInterface
     public function setEmail(string $email): self
     {
         $this->email = $email;
+
+        return $this;
+    }
+
+    public function getUsername(): ?string
+    {
+        return $this->username;
+    }
+
+    public function setUsername(string $username): self
+    {
+        $this->username = $username;
 
         return $this;
     }
@@ -86,7 +100,7 @@ class User implements UserInterface
 
     /**
      * Returning a salt is only needed if you are not using a modern
-     * hashing algorithm (e.g. bcrypt or sodium) in your security.yaml.
+     * hashing algorithm (e.g. bcrypt or sodium) in your Security.yaml.
      *
      * @see UserInterface
      */

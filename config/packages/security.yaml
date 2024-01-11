@@ -5,17 +5,34 @@ security:
     # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
     providers:
         users_in_memory: { memory: null }
+        backend_users:
+            memory:
+                users:
+                    claire@gmail.com: { password: '$2y$13$hfAeQ0lzjlgPe.A74jRwrOyCVb6nbQXT68RUjnLxs3lyDxUnEoHkO', roles: [ 'ROLE_ADMIN' ] }
+                    jade@gmail.com: { password: '$2y$13$6cqNPWyU.Hn2qjkOfd24Pe3z.3l/ryfzKZ4xtia7oUbamOHtzC04e', roles: [ 'ROLE_USER' ] }
+
         app_user_provider:
             entity:
-                class: App\Entity\User
+                class: App\Security\User
                 property: email
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+        admin:
+            pattern: ^/admin
+            provider: backend_users
+            form_login:
+                login_path: app_login
+                check_path: app_login_check
+                default_target_path: app_admin
+                always_use_default_target_path: true
+            logout:
+                path: admin_logout
+                target: main_homepage
+
         main:
             lazy: true
-            provider: users_in_memory
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
@@ -26,7 +43,7 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-    # - { path: ^/admin, roles: ROLE_ADMIN }
+    #  - { path: ^/admin, roles: ROLE_ADMIN }
     # - { path: ^/profile, roles: ROLE_USER }
 
 when@test:

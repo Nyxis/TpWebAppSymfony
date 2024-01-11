@@ -2,9 +2,10 @@
 
 {% block body %}
 	<h2>Login</h2>
-	{{ form_start(form, {'action': path('app_login')}) }}
-	{{ form_row(form.email) }}
-	{{ form_row(form.password) }}
+	{{ form_start(form, {'action': path('app_login_check')}) }}
+	{{ form_row(form._email, { full_name: "_username"}) }}
+	{{ form_row(form._password, { full_name: "_password"}) }}
 	<button type="submit">Login</button>
 	{{ form_end(form) }}
 {% endblock %}
+
