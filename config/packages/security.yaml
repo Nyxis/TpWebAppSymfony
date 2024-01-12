@@ -4,14 +4,31 @@ security:
         Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
     # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
     providers:
-        users_in_memory: { memory: null }
+        users_in_memory: { memory: null } 
+        backend_users:
+            memory:
+                users:
+                    Louis: { password: '$2y$13$vKgg7BnkiFGfnnYs4AUKQOLADTh33yJnFp6Fwu2449NpfU3HAGzya', roles: ['ROLE_USER'] }            
+                    Mickael: { password: '$2y$13$1FTozUp79AkraqSb3eaUmus5T3sB0u5o0L/T3wk1GYuj2VgGsSSiq', roles: ['ROLE_USER'] }               
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+        admin:
+            pattern: ^/admin
+            provider: backend_users
+            
         main:
             lazy: true
-            provider: users_in_memory
+            provider: backend_users
+            form_login:
+                login_path: app_login
+                check_path: app_login_check
+                default_target_path: index
+                always_use_default_target_path: true
+                
+                
+               
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall

@@ -17,7 +17,9 @@ class HomeController extends AbstractController
     #[Route('/', name: 'index')]
     public function index(): Response
     {
-        $mj = New MJ("Mickael ");
+        echo "Bienvenue ".$this->getUser()->getUserIdentifier()."!!!!!!!!!";
+     
+        $mj = New MJ("Jean");
         echo  "Le maitre du jeu est ".$mj->name();
       
      
