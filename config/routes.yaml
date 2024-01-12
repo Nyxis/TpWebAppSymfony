@@ -16,7 +16,11 @@ hello_world:
 login:
     path: /login
     controller: App\Controller\LoginController::login
+    methods: [GET, POST]
 login_check:
     path: /login_check
     controller: App\Controller\SecurityController::loginCheck
     methods: [POST]
+admin:
+    path: /admin
+    controller: App\Controller\AdminController::index

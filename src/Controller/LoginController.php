@@ -14,9 +14,9 @@ class LoginController extends AbstractController
     {
         $formulaire = '<form action="login_check" method="post">
                             <label for="email">Email</label>
-                            <input type="email" name="email" id="email" style="margin-bottom: 20px;"> <br>
+                            <input type="email" name="email" id="email" style="margin-bottom: 20px;" required> <br>
                             <label for="password">Mot de passe</label>
-                            <input type="password" name="password" id="password"> <br>
+                            <input type="password" name="password" id="password" required> <br>
                             <button type="submit">Envoyer</button>
                         </form>'; 
 
@@ -28,7 +28,7 @@ class LoginController extends AbstractController
     {
         $email = $request->request->get('email');
         $password = $request->request->get('password');
-
+        
         return new Response('Vous êtes connecté!!! ');
     }
 }
