@@ -1,0 +1,26 @@
+
+
+{% block body %}
+    <h2>register</h2>
+    {{ form_start(form, {'action': path('app_register')}) }}
+    {{ form_row(form.firstname) }}
+    {{ form_row(form.lastname) }}
+    {{ form_row(form.email) }}
+    {{ form_row(form.password) }}
+    {{ form_row(form.roles) }}
+    {{ form_end(form) }}
+
+    {% block flash_messages %}
+        {% for flashMessage in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ flashMessage }}
+            </div>
+        {% endfor %}
+
+        {% for flashMessage in app.flashes('error') %}
+            <div class="alert alert-danger">
+                {{ flashMessage }}
+            </div>
+        {% endfor %}
+    {% endblock %}
+{% endblock %}

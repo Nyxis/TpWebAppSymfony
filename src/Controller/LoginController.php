@@ -27,7 +27,7 @@ class LoginController extends AbstractController
                 return $this->redirectToRoute('app_login_check');
             }
 
-            return $this->render('login/index.html.twig', [
+            return $this->render('login/register.html.twig', [
                 'form' => $form->createView(),
             ]);
     }
