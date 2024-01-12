@@ -11,9 +11,11 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RadioType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -24,17 +26,20 @@ class UserController extends AbstractController
 {
 
     #[Route(path: '/admin/create')]
-    public function createUser(Request $request, FormFactoryInterface $formFactory): Response
+    public function createUser(Request $request): Response
     {
-
-        $form = $formFactory->createNamedBuilder('')
+$user = new User();
+        $form = $this->createFormBuilder($user)
             ->setMethod("POST")
             ->setAction('/admin/create_check')
             ->add("firstname", TextType::class)
             ->add("lastname", TextType::class)
             ->add("password", PasswordType::class)
             ->add("email", EmailType::class)
-            ->add("roles", TextType::class)
+            ->add('roles', ChoiceType::class, [
+                'choices' => ['ROLE_ADMIN' => 'ROLE_ADMIN', 'ROLE_USER' => 'ROLE_USER'],
+                'multiple' => true,
+            ])
             ->add('create', SubmitType::class, ['label' => 'créer l\'utilsateur'])
             ->getForm();
 
@@ -50,13 +55,17 @@ class UserController extends AbstractController
 
         $form = $this->createForm(FormType::class, $user);
         $form->handleRequest($request);
+        $user = $form->getData();
+        if ($form->isSubmitted() /*&& $form->isValid()*/){
 
-        if ($form->isSubmitted() && $form->isValid()) $user = $form->getData();
+            $message = "formulaire correctement pris en compte";
+        }
+        else $message = "un incident s'est produit lors de la création du formulaire";
 
 
 
 
-        return $this->render('admin/create_ok.html.twig', []);
+        return $this->render('admin/create_ok_or_nok.html.twig', ["message"=>$message]);
 
     }
 
