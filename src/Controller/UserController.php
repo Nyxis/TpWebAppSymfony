@@ -66,7 +66,7 @@ $user = new User();
             $message = "formulaire correctement pris en compte";
 
         }
-        else $message = "un incident s'est produit lors de la création du formulaire";
+        else $message = "un incident s'est produit lors de la validation du formulaire";
 
 
 
