@@ -11,6 +11,10 @@ security:
           blini@houmous.fr: { password: '$2y$13$6dCa1tgVYRtY3yR3mdk51.QRus8phz459lKtbcOBv1JurtXC8SoaG', roles: [ 'ROLE_USER' ] }
           test@test.fr: { password: '$2y$13$1wM0iJN1nQ6FNJnfnXr4SuwE6Qxgm7s4ZQCebRTGpR9FaiT.zpxei', roles: [ 'ROLE_ADMIN' ] }
 
+    app_user_provider:
+      entity:
+        class: App\Entity\User
+        property: email
   firewalls:
     dev:
       pattern: ^/(_(profiler|wdt)|css|images|js)/

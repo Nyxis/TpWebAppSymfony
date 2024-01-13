@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Security\UserProvider;
 use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\BaseType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -13,6 +14,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\Form\FormRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -20,6 +22,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Validator\Constraints\Choice;
+use function Symfony\Component\String\u;
 
 
 class UserController extends AbstractController
@@ -53,12 +56,15 @@ $user = new User();
 
         $user = new User();
 
-        $form = $this->createForm(FormType::class, $user);
+        $form = $this->createForm(FormType::class, $user, ['allow_extra_fields'=>true]);
         $form->handleRequest($request);
         $user = $form->getData();
-        if ($form->isSubmitted() /*&& $form->isValid()*/){
+        dump($user);
+        if ($form->isSubmitted() && $form->isValid()){
+
 
             $message = "formulaire correctement pris en compte";
+
         }
         else $message = "un incident s'est produit lors de la création du formulaire";
 
