@@ -39,9 +39,10 @@ class AuthController extends AbstractController
     public function success(Request $request): Response
     {
         $wellDone = "welcome to Symfony";
+        $loginUrlRef = '/admin/login';
 
         return $this->render('/auth/success.html.twig', [
-            'welldone' => $wellDone
+            'welldone' => $wellDone, "loginUrlRef"=>$loginUrlRef
         ]);
 
     }
@@ -66,7 +67,7 @@ class AuthController extends AbstractController
     }
 
     #[Route(path: '/admin/login_check')]
-    public function loginAdminCheck(Request $request)
+    public function loginAdminCheck(Request $request): Response
     {
         return $this->render('/admin/success.html.twig', []);
     }
@@ -75,8 +76,9 @@ class AuthController extends AbstractController
     public function successAdmin(Request $request): Response
     {
        $userName = $this->getUser()->getUserIdentifier();
+       $formUrlRef = '/admin/create';
 
-        return $this->render('/admin/success.html.twig', ["username" => $userName]);
+        return $this->render('/admin/success.html.twig', ["username" => $userName,"formUrlRef" => $formUrlRef]);
 
     }
 }

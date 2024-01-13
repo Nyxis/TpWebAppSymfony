@@ -14,7 +14,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     protected string $lastName;
     protected string $eMail;
     protected string $password;
-    protected string $roles;
+    protected array $roles;
 
     public function __construct()
     {
