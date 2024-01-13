@@ -1,12 +1,9 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\mj;
 
-use App\Entity\Coin;
-use App\Entity\Deck;
-use App\Entity\Dice;
-use App\Entity\Mj;
-use App\Service\Roller;
+
+use App\Service\MjService\Roller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;

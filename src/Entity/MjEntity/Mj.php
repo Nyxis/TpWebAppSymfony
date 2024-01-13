@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity\MjEntity;
 
-use App\Service\Tirage;
-use App\Service\TirageAdapter;
+use App\Service\MjService\Tirage;
+use App\Service\MjService\TirageAdapter;
 
 class Mj implements Tirage
 
@@ -15,7 +15,9 @@ class Mj implements Tirage
     private $coin;
 
     /**
-     * @param $name
+     * @param $deck
+     * @param $dice
+     * @param $coin
      */
     public function __construct( $deck,  $dice,  $coin)
     {
