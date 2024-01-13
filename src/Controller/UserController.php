@@ -2,77 +2,62 @@
 
 namespace App\Controller;
 
-use App\Security\UserProvider;
+
 use App\Entity\User;
+use App\Form\UserType;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Exception\NotSupported;
+use Doctrine\ORM\Exception\ORMException;
+use Doctrine\ORM\OptimisticLockException;
+use http\Message;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\BaseType;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\FormType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-use Symfony\Component\Form\Extension\Core\Type\RadioType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Form;
-use Symfony\Component\Form\FormFactoryInterface;
-use Symfony\Component\Form\FormRegistry;
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Form\FormTypeInterface;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Validator\Constraints\Choice;
-use function Symfony\Component\String\u;
 
 
 class UserController extends AbstractController
 {
-
     #[Route(path: '/admin/create')]
-    public function createUser(Request $request): Response
+    public function createUser(Request $request, EntityManagerInterface $em): Response
     {
-$user = new User();
-        $form = $this->createFormBuilder($user)
-            ->setMethod("POST")
-            ->setAction('/admin/create_check')
-            ->add("firstname", TextType::class)
-            ->add("lastname", TextType::class)
-            ->add("password", PasswordType::class)
-            ->add("email", EmailType::class)
-            ->add('roles', ChoiceType::class, [
-                'choices' => ['ROLE_ADMIN' => 'ROLE_ADMIN', 'ROLE_USER' => 'ROLE_USER'],
-                'multiple' => true,
-            ])
-            ->add('create', SubmitType::class, ['label' => 'créer l\'utilsateur'])
-            ->getForm();
+        $user = new User();
+        $form = $this->createForm(UserType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->persist($user);
+            $em->flush();
+            $message = "Formulaire correctement pris en compte";
+            return $this->render('admin/create_ok.html.twig', ['message' => $message]);
+        }
+        elseif($form->isSubmitted() && !$form->isValid()){
+
+
+           $this->redirectToRoute('/admin/create_nok');
+
+        }
 
         return $this->render('/admin/create.html.twig', ['form' => $form->createView()]);
+
     }
 
 
-    #[Route(path: '/admin/create_check')]
-    public function validateUser(Request $request): Response
+    #[Route(path: '/admin/create_ok')]
+    public function creationOK(Request $request,): Response
     {
 
-        $user = new User();
 
-        $form = $this->createForm(FormType::class, $user, ['allow_extra_fields'=>true]);
-        $form->handleRequest($request);
-        $user = $form->getData();
-        dump($user);
-        if ($form->isSubmitted() && $form->isValid()){
+        return $this->render('admin/users.twig');
+    }
+    #[Route(path: '/admin/create_nok')]
+    public function creationNOK(Request $request,): Response
+    {
+        $message = "un incident est survenu lors de la soumission du formulaire";
+        $formUrlRef = '/admin/create';
 
-
-            $message = "formulaire correctement pris en compte";
-
-        }
-        else $message = "un incident s'est produit lors de la validation du formulaire";
-
-
-
-
-        return $this->render('admin/create_ok_or_nok.html.twig', ["message"=>$message]);
-
+        return $this->render('/admin/create_nok.html.twig',['formUrlRef'=> $formUrlRef, 'message' => $message]);
     }
 
 }

@@ -1,14 +1,14 @@
 <?php
 
 namespace App\Entity;
-use Symfony\Component\Form\FormTypeInterface;
+use AllowDynamicProperties;
+use phpDocumentor\Reflection\Types\Integer;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-class User implements UserInterface, PasswordAuthenticatedUserInterface
+#[AllowDynamicProperties] class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
-
-
+    protected int $id;
 
     protected string $firstName;
     protected string $lastName;
@@ -16,9 +16,44 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     protected string $password;
     protected array $roles;
 
+    public function setFirstName(string $firstName): void
+    {
+        $this->firstName = $firstName;
+    }
+
+    public function setLastName(string $lastName): void
+    {
+        $this->lastName = $lastName;
+    }
+
+    public function setEMail(string $eMail): void
+    {
+        $this->eMail = $eMail;
+    }
+
+    public function setPassword(string $password): void
+    {
+        $this->password = $password;
+    }
+
+    public function setRoles(array $roles): void
+    {
+        $this->roles = $roles;
+    }
+
     public function __construct()
     {
 
+    }
+
+    public function getID(): int
+    {
+        return $this->iD;
+    }
+
+    public function setID(int $iD): void
+    {
+        $this->iD = $iD;
     }
     public function getFirstName(): string
     {
