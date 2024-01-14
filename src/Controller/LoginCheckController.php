@@ -8,7 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class LoginCheckController extends AbstractController
 {
-    #[Route('/login/check', name: 'app_login_check')]
+    #[Route('admin/login/check', name: 'app_login_check')]
     public function index(): Response
     {
       

@@ -8,7 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class LoginController extends AbstractController
 {
-    #[Route('/login', name: 'app_login')]
+    #[Route('admin/login', name: 'app_login')]
     public function index(): Response
     {
         // dump( $this->getUser());

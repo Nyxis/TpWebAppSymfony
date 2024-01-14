@@ -14,18 +14,20 @@ security:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+    
         admin:
             pattern: ^/admin
-            provider: backend_users
-            
-        main:
-            lazy: true
             provider: backend_users
             form_login:
                 login_path: app_login
                 check_path: app_login_check
-                default_target_path: index
+                default_target_path: app_admin
                 always_use_default_target_path: true
+        main:
+            lazy: false
+            provider: backend_users
+        
+       
                 
                 
                
