@@ -1,5 +1,21 @@
-controllers:
-    resource:
-        path: ../src/Controller/
-        namespace: App\Controller
-    type: attribute
+#
+# admin area
+#
+
+_users:
+    resource: routes/user.yaml
+    prefix: /admin/user
+    name_prefix : user_
+
+
+#
+# security area
+#
+
+_security: 
+    resource: route/security.yaml
+    prefix: /admin
+
+
+homepage:
+  path: /
