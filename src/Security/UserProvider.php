@@ -19,6 +19,7 @@ class UserProvider implements UserProviderInterface, PasswordUpgraderInterface
      * need to implement this method.
      *
      * @throws UserNotFoundException if the user is not found
+     * @throws \Exception
      */
     public function loadUserByIdentifier(string $identifier): UserInterface
     {

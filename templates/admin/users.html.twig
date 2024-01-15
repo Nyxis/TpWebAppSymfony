@@ -8,6 +8,32 @@
     <title>Document</title>
 </head>
 <body>
-<h2> <a href="{{ newcreation }}">Créer un nouvel utilisateur</a></h2>
+<table>
+    <thead>
+        <tr>
+            <th colspan="4">LISTE DES UTILISATEURS</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        {% for user in userslist  %}
+        <tr>
+        <td>{{ user.firstname }}</td>
+        <td>{{ user.lastname }}</td>
+        <td>{{ user.email }}</td>
+        <td> <a href="/admin/user/{{user.id}}/">MODIFIER</a> <span> ----  </span>
+            <a href="/admin/user/{{user.id}}/delete">SUPPRIMER</a>
+            </td>
+        </tr>
+{#        <td>{{ user.roles }}</td>#}
+        {% endfor %}
+<h3>{{ message }}</h3>
+    </tbody>
+</table>
+
+
+
+
+<h2> <a href="/admin/create">Créer un nouvel utilisateur</a></h2>
 </body>
 </html>

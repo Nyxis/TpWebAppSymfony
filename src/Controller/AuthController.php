@@ -3,8 +3,6 @@
 namespace App\Controller;
 
 
-use App\Security\UserProvider;
-use http\Client\Curl\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;

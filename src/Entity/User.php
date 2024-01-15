@@ -21,6 +21,11 @@ use Symfony\Component\Security\Core\User\UserInterface;
         $this->firstName = $firstName;
     }
 
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
     public function setLastName(string $lastName): void
     {
         $this->lastName = $lastName;
@@ -46,10 +51,6 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
     }
 
-    public function getID(): int
-    {
-        return $this->iD;
-    }
 
     public function setID(int $iD): void
     {
