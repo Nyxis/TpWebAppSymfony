@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Security\User;
+use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -18,7 +18,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class UserController extends AbstractController
 {
     #[Route('/admin/register', name: 'app_register')]
-    public function create(Request $request): Response
+    public function createUser(Request $request): Response
     {
         //dump($authenticationUtils->getLastAuthenticationError());
 
@@ -45,13 +45,11 @@ class UserController extends AbstractController
 
             $this->addFlash('success', 'Le formulaire a été soumis avec succès.');
 
-            return $this->redirectToRoute('app_login');
         }
-
-        $this->addFlash('error', 'Échec : Le formulaire n\'est pas valide.');
 
         return $this->render('admin/user/register.html.twig', [
             'form' => $form->createView(),
+            'errors' => $form->getErrors(true),
             'user'=> $user
         ]);
     }
