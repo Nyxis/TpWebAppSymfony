@@ -19,6 +19,7 @@ class UserRepository extends ServiceEntityRepository
         return $this->findAllByRoles(['SUPER_ADMIN']);
     }
 
+
     public function save(User $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);

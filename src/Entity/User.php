@@ -85,18 +85,9 @@ class User
    {
        $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
-        //$roles[] = 'ROLE_USER';
+        $roles[] = 'ROLE_USER';
        //$roles[] = Roles::USER;
-       if (is_array($roles) && isset($roles[0]) && is_string($roles[0])) {
-           $userRole = $roles[0];
-           $roles = [$userRole];
-       } else {
-           // Si le format n'est pas celui attendu, ajoutez ROLE_USER par défaut
-           $roles[] = 'ROLE_USER';
-       }
-
        return array_unique($roles);
-
    }
 
     public function setRoles(array $roles): self

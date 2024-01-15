@@ -59,8 +59,25 @@ class UserController extends AbstractController
         if ($form->isSubmitted()) {
             if ($form->isValid()) {
                 // Persist the user to the database
-                //$user->setRoles($form->get('roles')->getData());
-                var_dump($user);
+                $user->setRoles($form->get('roles')->getData());
+
+                //echo $user->getEmail();     // Accéder à l'email
+               // echo $user->getFirstname(); // Accéder au prénom
+                //echo $user->getLastname();  // Accéder au nom de famille
+                  // Accéder aux rôles
+                //print_r($roles) ;
+                //$rolesAsString = implode(', ', $roles);
+                $roles =  $user->getRoles();
+                // Filtrer les éléments qui contiennent "ROLE_"
+                $filteredRoles = array_filter($roles, function($role) {
+                    return strpos($role, 'ROLE_') !== false;
+                });
+
+                // Concaténer les résultats en une chaîne
+                $rolesAsString = implode(', ', $filteredRoles);
+                echo $rolesAsString;
+                $user->setRolesAsString($rolesAsString);
+                //var_dump($user);
                 $em->persist($user);
                 $em->flush();
 
