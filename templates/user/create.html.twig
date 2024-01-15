@@ -1,28 +1,78 @@
-{# templates/admin/user/create.html.twig #}
+{# templates/user/create.html.twig #}
 
 {% extends 'base.html.twig' %}
 
-{% block title %}Create User{% endblock %}
+{% block title %}Création d'utilisateur{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        /* Ajoutez votre CSS personnalisé ici */
+        .user-form {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            color: #fff;
+        }
+    </style>
+{% endblock %}
 
 {% block body %}
-    <h1>Create User</h1>
+    <div class="user-form">
+        <h1 class="text-center">Création d'utilisateur</h1>
 
-    {% for flash_message in app.flashes('success') %}
-        <div class="alert alert-success">
-            {{ flash_message }}
-        </div>
-    {% endfor %}
+        {% for flash_message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ flash_message }}
+            </div>
+        {% endfor %}
 
-    {% for flash_message in app.flashes('error') %}
-        <div class="alert alert-danger">
-            {{ flash_message }}
-        </div>
-    {% endfor %}
+        {% for flash_message in app.flashes('error') %}
+            <div class="alert alert-danger">
+                {{ flash_message }}
+            </div>
+        {% endfor %}
 
-    <form method="post" action="{{ path('admin_user_create') }}">
-        {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <button type="submit">Create User</button>
-        {{ form_end(form) }}
-    </form>
+        <form method="post" action="{{ path('admin_user_create') }}">
+            {{ form_start(form) }}
+            <div class="form-group">
+                {{ form_label(form.firstname, 'Prénom') }}
+                {{ form_widget(form.firstname, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(form.lastname, 'Nom') }}
+                {{ form_widget(form.lastname, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(form.email, 'Email') }}
+                {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(form.password.first, 'Mot de passe') }}
+                {{ form_widget(form.password.first, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(form.password.second, 'Répéter le mot de passe') }}
+                {{ form_widget(form.password.second, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(form.roles, 'Type d\'utilisateur') }}
+                {{ form_widget(form.roles, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Créer l'utilisateur</button>
+            {{ form_end(form) }}
+        </form>
+    </div>
 {% endblock %}
