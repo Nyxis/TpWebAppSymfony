@@ -20,7 +20,7 @@ class AdminController extends AbstractController
     {
         echo "Bienvenue ".$this->getUser()->getUserIdentifier()."!!!!!!!!!";
         // just set up a fresh $task object (remove the example data)
-        $task = new User();
+        $user = new User();
 
         $form = $this->createForm(UserType::class, $task);
 
@@ -28,7 +28,7 @@ class AdminController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             // $form->getData() holds the submitted values
             // but, the original `$task` variable has also been updated
-            $task = $form->getData();
+            $user = $form->getData();
 
             // ... perform some action, such as saving the task to the database
 
