@@ -8,11 +8,6 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class User extends UserEntity implements UserInterface, PasswordAuthenticatedUserInterface
 {
 
-    public function __construct ($email, $password)
-    {
-        parent::User($email, $password);
-    }
-
     public function getUserIdentifier(): string
     {
         return (string) $this->email;
