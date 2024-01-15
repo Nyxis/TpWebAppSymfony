@@ -31,10 +31,10 @@ admin_login:
 admin_login_check:
     path: /admin/login_check
     controller: App\Controller\AdminLoginController::loginCheck
-    # config/routes.yaml
+    prefix: /admin
 
 admin_user_create:
-    path: '/admin/user/create'
+    path: 'create'
     controller: 'App\Controller\Admin\UserController::create'
     methods: ['GET', 'POST']
 
