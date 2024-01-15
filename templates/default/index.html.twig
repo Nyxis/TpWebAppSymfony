@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello DefaultController!{% endblock %}
+
+{% block body %}
+    {{ form_start(form) }}
+        {{ form_label(form.firstname) }}
+        {{ form_widget(form.firstname) }}
+   
+        {{ form_label(form.lastname) }}
+        {{ form_widget(form.lastname) }}
+        {{ form_label(form.email) }}
+        {{ form_widget(form.email) }}
+        {{ form_label(form.password) }}
+        {{ form_widget(form.password) }}
+        {{ form_label(form.roles) }}
+        {{ form_widget(form.roles) }}
+        {{ form_rest(form) }}
+        <button type="submit">Enregistrer</button>
+    {{ form_end(form) }}
+{% endblock %}

@@ -10,7 +10,15 @@ services:
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
-        
+     # config/services.yaml
+
+    # services:
+    # App\Controller\Admin\UserController:
+    #     autowire: true
+    #     autoconfigure: true
+    #     public: true  # Rendez le service public
+    #     tags: ['controller.service_arguments']
+   
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name

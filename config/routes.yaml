@@ -13,14 +13,29 @@ roll:
 hello_world:
     path: /hello
     controller: App\Controller\HelloController::hello
+# config/routes.yaml
+
 login:
     path: /login
-    controller: App\Controller\LoginController::login
-    methods: [GET, POST]
+    controller: App\Controller\LoginController::index
+
 login_check:
     path: /login_check
-    controller: App\Controller\SecurityController::loginCheck
-    methods: [POST]
-admin:
-    path: /admin
-    controller: App\Controller\AdminController::index
+    controller: App\Controller\LoginController::loginCheck
+    methods: ['POST']
+
+admin_login:
+    path: /admin/login
+    controller: App\Controller\AdminLoginController::index
+
+admin_login_check:
+    path: /admin/login_check
+    controller: App\Controller\AdminLoginController::loginCheck
+    # config/routes.yaml
+
+admin_user_create:
+    path: '/admin/user/create'
+    controller: 'App\Controller\Admin\UserController::create'
+    methods: ['GET', 'POST']
+
+
