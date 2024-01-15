@@ -22,7 +22,7 @@ class AdminController extends AbstractController
         // just set up a fresh $task object (remove the example data)
         $user = new User();
 
-        $form = $this->createForm(UserType::class, $task);
+        $form = $this->createForm(UserType::class, $user);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
