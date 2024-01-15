@@ -53,7 +53,7 @@ class DeckCoinAdapter implements Adapter{
 }
 class DeckDiceAdapter implements Adapter {
  public function flip(){
-    echo "Vous lancez un dé, il tombe sur la face " . rand(1,6);
+    echo "Vous lancez un dé, il tombe sur la face" . rand(1,6);
  }
 }
 

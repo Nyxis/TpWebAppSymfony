@@ -3,7 +3,7 @@
 {% block title %}Hello LoginController!{% endblock %}
 
 {% block body %}
-
+<link rel="stylesheet" href="{{asset('style.css')}}">
 <form action="{{ path('app_login_check')}}" method="POST">
     <label for="uname"><b>Username</b></label>
     <input type="text" placeholder="Enter Username" name="_username" required>

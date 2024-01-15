@@ -3,7 +3,16 @@
 {% block title %}Hello AdminController!{% endblock %}
 
 {% block body %}
-Formulaire pour créer un utilisateur
-{{ form(form) }}
+<link rel="stylesheet" href="{{asset('style.css')}}">
+
+
+ <button onclick="window.location.href='{{ path('app_user_list')}}'">
+      Voir la liste des utilisateurs
+    </button>
+ <button onclick="window.location.href='{{ path('app_create_user')}}'">
+      Créer un utilisateur
+    </button>
+
+ 
  
 {% endblock %}

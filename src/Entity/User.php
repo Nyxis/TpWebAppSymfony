@@ -1,12 +1,23 @@
 <?php
 namespace App\Entity;
-
+use App\Repository\UserRepository;
+use Doctrine\ORM\Mapping as ORM;
+# [ORM\Entity(repositoryClass: UserRepository::class)]
 class User
 {
+# [ORM\Id]
+# [ORM\GeneratedValue]
+# [ORM\Column(type: 'integer')]
+protected string $id;  
+# [ORM\Column(type: 'string', length: 255)]
 protected string $firstname;
+# [ORM\Column(type: 'string', length: 255)]
 protected string $lastname;
+# [ORM\Column(type: 'string')]
 protected string $password;
+# [ORM\Column(type: 'string', length: 180, unique: true)]
 protected string $email;
+# [ORM\Column(type: 'string')]
 protected string $roles;
 
 

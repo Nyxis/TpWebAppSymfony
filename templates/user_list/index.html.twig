@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello UserListController!{% endblock %}
+
+{% block body %}
+<link rel="stylesheet" href="{{asset('style.css')}}">
+{% for user in users %}
+  <p>{{user.firstname}}</p>
+  <p>{{user.lastname}}</p>
+  <p>{{user.email}}</p> 
+  <p>{{user.roles}}</p> 
+
+<button onclick="window.location.href='#'">
+      editer un utilisateur
+    </button>
+  <button onclick="window.location.href='#'">
+      supprimer un utilisateur
+    </button>
+  
+ 
+{% endfor %}
+{% endblock %}
