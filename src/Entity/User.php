@@ -22,7 +22,7 @@ class User
     #[ORM\Column(type: 'string', length: 255)]
     private ?string $lastname;
 
-    #[ORM\Column(type: 'json')]
+    #[ORM\Column]
     private array $roles = [];
 
     #[ORM\Column(type: 'string')]
@@ -87,7 +87,8 @@ class User
         // guarantee every user at least has ROLE_USER
         $roles[] = 'ROLE_USER';
        //$roles[] = Roles::USER;
-       return array_unique($roles);
+       //return array_unique($roles);
+       return $roles;
    }
 
     public function setRoles(array $roles): self

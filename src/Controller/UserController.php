@@ -2,8 +2,8 @@
 
 namespace App\Controller;
 
-//use App\Entity\Roles;
 use App\Entity\User;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -19,16 +19,17 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class UserController extends AbstractController
 {
+    #[Route('/admin/users', name: 'app_user_list', methods: ['GET'])]
     public function listUsers(
-        EntityManagerInterface $em
+        EntityManagerInterface $em,
+        UserRepository $userRepository,
     )
     {
-        $user = $em->getRepository('');
-        return $this->render('admin/user/list.html.twig', [
-            'user'=> $user
+        return $this->render('admin/users/index.html.twig', [
+            'users'=> $userRepository->findAll()
         ]);
     }
-    #[Route('/admin/register', name: 'app_register')]
+    #[Route('/admin/users/add', name: 'app_user_register')]
     public function createUser(
         EntityManagerInterface $em,
         Request $request
@@ -47,7 +48,11 @@ class UserController extends AbstractController
                 'roles', ChoiceType::class, [
                     'label' => 'roles',
                     'multiple' => true,
-                    'choices' => ['roles.admin' => 'ADMIN', 'roles.user' => 'USER', 'roles.super_admin' => 'SUPER_ADMIN'],
+                    'choices' => [
+                        'Administrateur' => 'ROLE_ADMIN',
+                        'Utilisateur' => 'ROLE_USER',
+                        'Super administrateur' => 'ROLE_SUPER_ADMIN'
+                    ],
 
                 ]
             )
@@ -58,26 +63,15 @@ class UserController extends AbstractController
 
         if ($form->isSubmitted()) {
             if ($form->isValid()) {
-                // Persist the user to the database
-                $user->setRoles($form->get('roles')->getData());
+                // Persist the users to the database
+                $roles=$form->get('roles')->getData();
+              dd($roles);
+                $roles = array_unique($roles);
+                $user->setRoles($roles);
 
-                //echo $user->getEmail();     // Accéder à l'email
-               // echo $user->getFirstname(); // Accéder au prénom
-                //echo $user->getLastname();  // Accéder au nom de famille
-                  // Accéder aux rôles
-                //print_r($roles) ;
-                //$rolesAsString = implode(', ', $roles);
-                $roles =  $user->getRoles();
-                // Filtrer les éléments qui contiennent "ROLE_"
-                $filteredRoles = array_filter($roles, function($role) {
-                    return strpos($role, 'ROLE_') !== false;
-                });
+                print_r($user-> getRoles());
 
-                // Concaténer les résultats en une chaîne
-                $rolesAsString = implode(', ', $filteredRoles);
-                echo $rolesAsString;
-                $user->setRolesAsString($rolesAsString);
-                //var_dump($user);
+                //var_dump($users);
                 $em->persist($user);
                 $em->flush();
 
@@ -88,12 +82,43 @@ class UserController extends AbstractController
         }
 
 
-        return $this->render('admin/user/register.html.twig', [
+        return $this->render('admin/users/register.html.twig', [
             'form' => $form->createView(),
             'errors' => $form->getErrors(true),
-            'user'=> $user
+            'users'=> $user
         ]);
     }
 
+    #[Route('/admin/users/{id}', name: 'app_edit', methods: ['GET'])]
+    public function editUser($id, EntityManagerInterface $em, UserRepository $userRepository): Response
+    {
+        $user = $userRepository->find($id);
 
+        if (!$user) {
+            throw $this->createNotFoundException('User not found');
+        }
+
+        return $this->render('admin/users/edit.html.twig', [
+            'users' => $user,
+        ]);
+    }
+
+    #[Route('/admin/users/{id} ', name: 'app_delete', methods: ['GET'])]
+    public function deleteUser($id, EntityManagerInterface $em, UserRepository $userRepository): Response
+    {
+        $user = $userRepository->find($id);
+
+        if (!$user) {
+            throw $this->createNotFoundException('User not found');
+        }
+
+        $em->remove($user);
+        $em->flush();
+
+        // Optionally, you can add a flash message to inform the users about the successful deletion
+        $this->addFlash('success', 'User deleted successfully');
+
+        // Redirect to a different page after deletion, e.g., the users list page
+        return $this->redirectToRoute('app_user_list');
+    }
 }

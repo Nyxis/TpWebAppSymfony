@@ -1,11 +1,11 @@
-{% extends 'admin/user/_layout.html.twig' %}
+{% extends 'admin/users/_layout.html.twig' %}
 
 
 {% form_theme form 'bootstrap_5_layout.html.twig' %}
 
 {% block body %}
     <h2>register</h2>
-    {{ form_start(form, {'action': path('app_register')}) }}
+    {{ form_start(form, {'action': path('app_user_register')}) }}
     {{ form_row(form.firstname) }}
     {{ form_row(form.lastname) }}
     {{ form_row(form.email) }}
