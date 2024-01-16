@@ -65,7 +65,6 @@ class UserController extends AbstractController
             if ($form->isValid()) {
                 // Persist the users to the database
                 $roles=$form->get('roles')->getData();
-              dd($roles);
                 $roles = array_unique($roles);
                 $user->setRoles($roles);
 
