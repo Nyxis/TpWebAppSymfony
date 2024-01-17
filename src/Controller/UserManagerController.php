@@ -27,7 +27,7 @@ class UserManagerController extends AbstractController
 
         if ($request->isMethod($deleteUser)) {
             $message = "utilisateur supprimé";
-        } else $message = "éditez ou supprimez des utilsateurs";
+        } else $message = "éditez ou supprimez des utilisateurs";
 
         return $this->render('admin/users.html.twig', [
             'userslist' => $usersList,
@@ -53,7 +53,10 @@ class UserManagerController extends AbstractController
 
         $message = "utilisateur supprimé";
         $usersList = $userDoctrineRepository->findAll();
+        if (count($usersList) < 1) {
 
+            return $this->render('admin/nouser.html.twig');
+        }
         return $this->render('admin/users.html.twig', [
 
             'message' => $message,
