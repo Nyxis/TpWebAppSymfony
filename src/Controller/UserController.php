@@ -88,36 +88,52 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/users/{id}', name: 'app_user_edit', methods: ['GET'])]
-    public function editUser($id, EntityManagerInterface $em, UserRepository $userRepository): Response
+    #[Route('/admin/users/{id}', name: 'app_user_edit', methods: ['GET', 'POST'])]
+    public function editUser($id, EntityManagerInterface $em, UserRepository $userRepository, Request $request): Response
     {
-        $user = $userRepository->find($id);
+        $user = $userRepository->findOneBy(['id' => $id]);
+        $form = $this->createForm(UserFormType::class, $user);
+        $form->handleRequest($request);
 
-        if (!$user) {
-            throw $this->createNotFoundException('User not found');
+        if ($form->isSubmitted() && $form->isValid()) {
+            // dd($form->getData);
+            $user = $form->getData();
+            // dd($user);
+            $em->persist($user);
+            $em->flush();
+
+            $this->addFlash(
+                'success',
+                'The new product has been editted successfully'
+            );
+            return $this->redirectToRoute('app_user_list');
         }
 
         return $this->render('admin/users/edit.html.twig', [
-            'users' => $user,
+            'form' => $form->createView()
         ]);
     }
 
     #[Route('/admin/users/{id} ', name: 'app_user_delete', methods: ['GET'])]
     public function deleteUser($id, EntityManagerInterface $em, UserRepository $userRepository): Response
     {
-        $user = $userRepository->find($id);
-
+        $user = $userRepository->findOneBy(['id' => $id]);
         if (!$user) {
-            throw $this->createNotFoundException('User not found');
+            $this->addFlash(
+                'Success',
+                'Don\'t find product in question!'
+            );
+            return $this->redirectToRoute('app_user_list');
         }
 
         $em->remove($user);
         $em->flush();
 
-        // Optionally, you can add a flash message to inform the users about the successful deletion
-        $this->addFlash('success', 'User deleted successfully');
-
-        // Redirect to a different page after deletion, e.g., the users list page
+        $this->addFlash(
+            'success',
+            'The new product has been deleted successfully'
+        );
         return $this->redirectToRoute('app_user_list');
     }
+
 }
