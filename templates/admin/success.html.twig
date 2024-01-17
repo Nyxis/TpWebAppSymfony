@@ -14,9 +14,17 @@
 <h1>tu es connecté en Admin</h1>
 <h2>Salut à toi, {{ username }}!</h2>
 <div>
-    <img src="{{ asset('images/trio.gif') }}" alt="Thrash Metal Admin">
 
-    <h2><a href='{{ formUrlRef }}'> créer un nouvel utilisateur</a></h2>
+
+
+    <img src="{{ asset('images/trio.gif') }}" alt="Thrash Metal Admin">
+    <form action="/admin/create" method="get">
+        <button type="submit">Créer un nouvel utilisateur</button>
+    </form>
+    <form action="/admin/users" method="get">
+        <button type="submit">voir les utilisateurs existants</button>
+    </form>
+
 </div>
 </body>
 </html>

@@ -10,11 +10,15 @@ security:
           jojo@blublu.com: { password: '$2y$13$5NQG605Cej.bEIehOgcjHOdOrYh0dALXcR3/RReeYx2RVC3VZqfHO', roles: [ 'ROLE_ADMIN' ] }
           superadmin@itaka.fr: { password: '$2y$13$wy1ZJ.5S1SzVDhM8zts3UuWpFBnLXUrStEalXecN4zgg53BSjSKsu', roles: [ 'ROLE_ADMIN' , 'ROLE_SUPER_ADMIN' ] }
 
-
     app_user_provider:
       entity:
         class: App\Entity\User
-        property: email
+        property: 'eMail'
+
+    all_users:
+      chain:
+        providers: [ 'app_user_provider', 'users_in_memory' ]
+
   firewalls:
     dev:
       pattern: ^/(_(profiler|wdt)|css|images|js)/
@@ -24,7 +28,7 @@ security:
 
       pattern: ^/admin
       lazy: false
-      provider: users_in_memory
+      provider: all_users
       form_login:
         login_path: /admin/login
         check_path: /admin/login_check
@@ -35,7 +39,7 @@ security:
 
       lazy: true
       pattern: ^/auth
-      provider: users_in_memory
+      provider: all_users
 
 
 
@@ -49,6 +53,7 @@ security:
   # Easy way to control access for large sections of your site
   # Note: Only the *first* access control that matches will be used
   access_control:
+  #  - { path: ^/admin, roles: ROLE_ADMIN }
   # - { path: ^/auth/success, roles: ROLE_ADMIN }
   # - { path: ^/profile, roles: ROLE_USER }
 

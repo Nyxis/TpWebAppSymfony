@@ -15,6 +15,13 @@
 <h2>{{message}}</h2>
 <div>
     <img src="{{ asset('images/solo.gif') }}" alt="Thrash Metal Admin">
+
+    <form action="/admin/create" method="get">
+        <button type="submit">Créer un nouvel utilisateur</button>
+    </form>
+    <form action="/admin/users" method="get">
+        <button type="submit">voir les utilisateurs existants</button>
+    </form>
 </div>
 </body>
 </html>

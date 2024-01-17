@@ -6,14 +6,14 @@
     <title>Formulaire</title>
 </head>
 <body>
-<h1>connectez-vous sans compte</h1>
+<h1>Bonjour !</h1>
 
 
 {% block body %}
 
-    <div>
-       <a href="/auth/success"> {{ go }}</a>
-    </div>
+    <form action="/auth/success" method="get">
+        <button type="submit">Accéder au site</button>
+    </form>
 
 {% endblock %}
 

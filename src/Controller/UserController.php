@@ -27,7 +27,8 @@ class UserController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $message = "Formulaire correctement pris en compte";
-            $userPasswordHasher->hashPassword($user, $user->getPassword());
+            $hashedPass = $userPasswordHasher->hashPassword($user, $user->getPassword());
+            $user->setPassword($hashedPass);
             $em->persist($user);
             $em->flush();
             return $this->render('admin/create_ok.html.twig', ['message' => $message]);
