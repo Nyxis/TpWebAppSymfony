@@ -4,20 +4,11 @@
 {% form_theme form 'bootstrap_5_layout.html.twig' %}
 
 {% block body %}
-    <h2>register</h2>
-    {{ form_start(form, {'action': path('app_user_register')}) }}
-    {{ form_row(form.firstname) }}
-    {{ form_row(form.lastname) }}
-    {{ form_row(form.email) }}
-    {{ form_row(form.password) }}
-    {{ form_row(form.roles) }}
-    {{ form_end(form) }}
 
-    {{  dump(app) }}
-
+    <div class="container">
     {% block flash_messages %}
         {% for flashMessage in app.flashes('success') %}
-            <div class="alert alert-success">
+            <div class="alert alert-success mt-4">
                 {{ flashMessage }}
             </div>
         {% endfor %}
@@ -27,5 +18,22 @@
                 {{ flashMessage }}
             </div>
         {% endfor %}
+
+
+        <h2 class="mt-4">register</h2>
+        {{ form_start(form, {'action': path('app_user_register')}) }}
+        {{ form_row(form.firstname) }}
+        {{ form_row(form.lastname) }}
+        {{ form_row(form.email) }}
+        {{ form_row(form.password) }}
+        {{ form_row(form.roles) }}
+        {{ form_end(form) }}
+
+        {{  dump(app) }}
+        </div>
     {% endblock %}
+
+
+
+
 {% endblock %}

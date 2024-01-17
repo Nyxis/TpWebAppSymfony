@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\LoginFormType;
+use App\Form\UserFormType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,6 +16,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Knp\Component\Pager\PaginatorInterface;
 
 
 
@@ -21,14 +24,29 @@ class UserController extends AbstractController
 {
     #[Route('/admin/users', name: 'app_user_list', methods: ['GET'])]
     public function listUsers(
-        EntityManagerInterface $em,
+        Request $request,
+        PaginatorInterface $paginator,
         UserRepository $userRepository,
-    )
-    {
+    ):Response {
+
+        $users = $paginator->paginate(
+            $userRepository->findAll(),
+            $request->query->getInt('page',1),
+        12 );
+
         return $this->render('admin/users/index.html.twig', [
-            'users'=> $userRepository->findAll()
+            'users'=> $users
         ]);
     }
+
+   #[Route('/admin/users/show/{id}', name: 'app_user_show', methods: ['GET'])]
+    public function showUser(User $user
+    ):Response {
+        return $this->render('admin/users/show.html.twig', [
+            'user' => $user,
+        ]);
+    }
+
     #[Route('/admin/users/add', name: 'app_user_register')]
     public function createUser(
         EntityManagerInterface $em,
@@ -39,25 +57,7 @@ class UserController extends AbstractController
 
         $user = new User();
 
-        $form = $this->createFormBuilder($user)
-            ->add('firstname', TextType::class)
-            ->add('lastname', TextType::class)
-            ->add('email', EmailType::class)
-            ->add('password', PasswordType::class)
-            ->add(
-                'roles', ChoiceType::class, [
-                    'label' => 'roles',
-                    'multiple' => true,
-                    'choices' => [
-                        'Administrateur' => 'ROLE_ADMIN',
-                        'Utilisateur' => 'ROLE_USER',
-                        'Super administrateur' => 'ROLE_SUPER_ADMIN'
-                    ],
-
-                ]
-            )
-            ->add('register', SubmitType::class, ['label' => 'Register'])
-            ->getForm();
+        $form = $this->createForm(UserFormType::class);
 
         $form->handleRequest($request);
 
@@ -88,7 +88,7 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/users/{id}', name: 'app_edit', methods: ['GET'])]
+    #[Route('/admin/users/{id}', name: 'app_user_edit', methods: ['GET'])]
     public function editUser($id, EntityManagerInterface $em, UserRepository $userRepository): Response
     {
         $user = $userRepository->find($id);
@@ -102,7 +102,7 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/users/{id} ', name: 'app_delete', methods: ['GET'])]
+    #[Route('/admin/users/{id} ', name: 'app_user_delete', methods: ['GET'])]
     public function deleteUser($id, EntityManagerInterface $em, UserRepository $userRepository): Response
     {
         $user = $userRepository->find($id);
