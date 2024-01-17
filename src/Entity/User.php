@@ -3,10 +3,11 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-class User
+class User implements PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -28,6 +29,10 @@ class User
     #[ORM\Column(type: 'string')]
     private string $password;
 
+    public function __construct()
+    {
+        $this->password = '';
+    }
     public function getId(): ?int
     {
         return $this->id;
@@ -68,28 +73,20 @@ class User
         return $this;
     }
 
-    /**
-     * The public representation of the user (e.g. a username, an email address, etc.)
-     *
-     * @see UserInterface
-     */
     public function getUserIdentifier(): string
     {
         return (string) $this->email;
     }
 
-    /**
-     * @see UserInterface
-     */
     public function getRoles(): array
-   {
-       $roles = $this->roles;
+    {
+        $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
         $roles[] = 'ROLE_USER';
-       //$roles[] = Roles::USER;
-       //return array_unique($roles);
-       return $roles;
-   }
+        //$roles[] = Roles::USER;
+        //return array_unique($roles);
+        return $roles;
+    }
 
     public function setRoles(array $roles): self
     {
@@ -98,9 +95,6 @@ class User
         return $this;
     }
 
-    /**
-     * @see PasswordAuthenticatedUserInterface
-     */
     public function getPassword(): string
     {
         return $this->password;
@@ -113,20 +107,11 @@ class User
         return $this;
     }
 
-    /**
-     * Returning a salt is only needed if you are not using a modern
-     * hashing algorithm (e.g. bcrypt or sodium) in your Security.yaml.
-     *
-     * @see UserInterface
-     */
     public function getSalt(): ?string
     {
         return null;
     }
 
-    /**
-     * @see UserInterface
-     */
     public function eraseCredentials(): void
     {
         // If you store any temporary, sensitive data on the user, clear it here

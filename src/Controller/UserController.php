@@ -15,6 +15,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Knp\Component\Pager\PaginatorInterface;
 
@@ -49,8 +50,9 @@ class UserController extends AbstractController
 
     #[Route('/admin/users/add', name: 'app_user_register')]
     public function createUser(
+        UserPasswordHasherInterface $hasher,
         EntityManagerInterface $em,
-        Request $request
+        Request $request,
     ): Response
     {
         //dump($authenticationUtils->getLastAuthenticationError());
@@ -67,8 +69,11 @@ class UserController extends AbstractController
                 $roles=$form->get('roles')->getData();
                 $roles = array_unique($roles);
                 $user->setRoles($roles);
+                 $passwordHasher = $hasher->hashPassword($user, $user->getPassword());
 
-                print_r($user-> getRoles());
+                 $user->setPassword($passwordHasher);
+               // dd($user);
+               // print_r($user-> getRoles());
 
                 //var_dump($users);
                 $em->persist($user);
@@ -114,7 +119,7 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/users/{id} ', name: 'app_user_delete', methods: ['GET'])]
+    #[Route('/admin/users/delete/{id} ', name: 'app_user_delete', methods: ['GET'])]
     public function deleteUser($id, EntityManagerInterface $em, UserRepository $userRepository): Response
     {
         $user = $userRepository->findOneBy(['id' => $id]);
