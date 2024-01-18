@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Controller\mj;
+namespace App\TPMJ\Controller;
 
 
-use App\Service\MjService\Roller;
+use App\TPMJ\Service\Roller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class MjController extends AbstractController
 {
-    #[Route(path: '/mj/roll')]
+    #[Route(path: '/TPMJ/roll')]
     public function main(): Response
     {
         //appel de la méthode statique portée par la classe Roller pour obtenir ce qui sera transmis à la vue
@@ -21,7 +21,7 @@ class MjController extends AbstractController
         else $pic = "https://i.giphy.com/HfFccPJv7a9k4.webp";
 
 
-        return $this->render('mj/roll.html.twig', ['sortie' => $sortie, 'pic'=>$pic]);
+        return $this->render('TPMJ/roll.html.twig', ['sortie' => $sortie, 'pic'=>$pic]);
 
     }
 

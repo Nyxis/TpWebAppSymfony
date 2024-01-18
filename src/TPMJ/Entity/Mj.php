@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Entity\MjEntity;
+namespace App\TPMJ\Entity;
 
-use App\Service\MjService\Tirage;
-use App\Service\MjService\TirageAdapter;
+use App\TPMJ\Service\Tirage;
+use App\TPMJ\Service\TirageAdapter;
 
 class Mj implements Tirage
 

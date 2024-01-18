@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Service\MjService;
+namespace App\TPMJ\Service;
 
-use App\Entity\MjEntity\Deck;
+use App\TPMJ\Entity\Deck;
 
 
 class TirageAdapter

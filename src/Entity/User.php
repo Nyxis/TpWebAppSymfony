@@ -78,7 +78,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
     public function getRoles(): array
     {
 
-        return [$this->roles];
+        return $this->roles;
     }
 
     public function eraseCredentials(): void

@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Service\MjService;
+namespace App\TPMJ\Service;
 
-use App\Entity\MjEntity\Coin;
-use App\Entity\MjEntity\Deck;
-use App\Entity\MjEntity\Dice;
-use App\Entity\MjEntity\Mj;
+use App\TPMJ\Entity\Coin;
+use App\TPMJ\Entity\Deck;
+use App\TPMJ\Entity\Dice;
+use App\TPMJ\Entity\Mj;
 
 class Roller
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity\MjEntity;
+namespace App\TPMJ\Entity;
 
 class Deck
 {

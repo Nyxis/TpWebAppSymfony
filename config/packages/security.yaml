@@ -7,7 +7,6 @@ security:
     users_in_memory:
       memory:
         users:
-          jojo@blublu.com: { password: '$2y$13$5NQG605Cej.bEIehOgcjHOdOrYh0dALXcR3/RReeYx2RVC3VZqfHO', roles: [ 'ROLE_ADMIN' ] }
           superadmin@itaka.fr: { password: '$2y$13$wy1ZJ.5S1SzVDhM8zts3UuWpFBnLXUrStEalXecN4zgg53BSjSKsu', roles: [ 'ROLE_ADMIN' , 'ROLE_SUPER_ADMIN' ] }
 
     app_user_provider:

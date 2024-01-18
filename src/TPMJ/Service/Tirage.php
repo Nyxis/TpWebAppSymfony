@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service\MjService;
+namespace App\TPMJ\Service;
 interface Tirage
 {
 
