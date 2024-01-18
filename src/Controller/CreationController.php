@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-
 use App\Entity\User;
 use App\Form\UserType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -12,14 +11,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
-
-
-
-class UserController extends AbstractController
+class CreationController extends AbstractController
 {
-
     #[Route(path: '/admin/create')]
-    public function createUser(Request $request, EntityManagerInterface $em, UserPasswordHasherInterface $userPasswordHasher): Response
+    public function createUser(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $userPasswordHasher): Response
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user, );
@@ -29,18 +24,15 @@ class UserController extends AbstractController
             $message = "Formulaire correctement pris en compte";
             $hashedPass = $userPasswordHasher->hashPassword($user, $user->getPassword());
             $user->setPassword($hashedPass);
-            $em->persist($user);
-            $em->flush();
+            $entityManager->persist($user);
+            $entityManager->flush();
             return $this->render('admin/create_ok.html.twig', ['message' => $message]);
 
         } elseif ($form->isSubmitted() && !$form->isValid()) {
             $this->redirectToRoute('/admin/create_nok');
         }
-
         return $this->render('/admin/create.html.twig', ['form' => $form->createView()]);
-
     }
-
 
     #[Route(path: '/admin/create_ok')]
     public function creationOK(Request $request,): Response
@@ -56,5 +48,4 @@ class UserController extends AbstractController
 
         return $this->render('/admin/create_nok.html.twig', ['formUrlRef' => $formUrlRef, 'message' => $message]);
     }
-
 }

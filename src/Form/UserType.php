@@ -1,5 +1,4 @@
 <?php
-
 // src/Form/UserType.php
 
 namespace App\Form;
@@ -21,13 +20,12 @@ class UserType extends AbstractType
         $builder
             ->add("firstname", TextType::class)
             ->add("lastname", TextType::class)
-            ->add("password", PasswordType::class)
             ->add("email", EmailType::class)
+            ->add("password", PasswordType::class)
             ->add('roles', EnumType::class, [
-                'class' => Roles::class, 'multiple' => true])
+                'class' => Roles::class, 'multiple' => true, 'expanded' => true])
             ->add('create', SubmitType::class, ['label' => 'Créer l\'utilisateur']);
 
         return $this;
     }
-
 }
