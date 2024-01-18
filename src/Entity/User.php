@@ -9,24 +9,15 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 class User implements PasswordAuthenticatedUserInterface
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
     private int $id;
 
-    #[ORM\Column(type: 'string', length: 180, unique: true)]
-    private ?string $email;
+    private string $email;
 
-    #[ORM\Column(type: 'string', length: 255)]
-    private ?string $firstname;
+    private string $firstname;
 
-    #[ORM\Column(type: 'string', length: 255)]
-    private ?string $lastname;
+    private string $lastname;
 
-    #[ORM\Column]
     private array $roles = [];
-
-    #[ORM\Column(type: 'string')]
     private string $password;
 
     public function __construct()

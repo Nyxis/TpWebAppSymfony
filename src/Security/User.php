@@ -18,4 +18,6 @@ class User extends UserEntity implements UserInterface, PasswordAuthenticatedUse
         return $this->password;
     }
 
+
+
 }
