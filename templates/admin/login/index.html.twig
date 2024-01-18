@@ -1,11 +1,31 @@
 
+{% extends 'base.html.twig' %}
+
+{% block title %}Login{% endblock %}
 
 {% block body %}
-	<h2>Login</h2>
-	{{ form_start(form, {'action': path('app_login_check')}) }}
-	{{ form_row(form._email, { full_name: "_username"}) }}
-	{{ form_row(form._password, { full_name: "_password"}) }}
-	<button type="submit">Login</button>
-	{{ form_end(form) }}
-{% endblock %}
 
+<link rel="stylesheet" href="{{asset('css/style.css')}}">
+
+<form action="{{ path('app_login_check')}}" method="post">
+
+	<h2>Login</h2>
+	<div class="imgcontainer">
+		<img src="{{ asset("../images/login.jpg") }}" alt="loginPhoto">
+	</div>
+
+	<div class="container">
+		<label for="email"><b>Email</b></label>
+		<input type="email" placeholder="Enter Email" name="_username" required>
+
+		<label for="psw"><b>Password</b></label>
+		<input type="password" placeholder="Enter Password" name="_password" required>
+
+		<button type="submit"> submit </button>
+		<label>
+			<input type="checkbox" checked="checked" name="remember"> Remember me
+		</label>
+	 </div>
+</form>
+
+{% endblock %}

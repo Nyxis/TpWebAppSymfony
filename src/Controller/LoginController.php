@@ -14,28 +14,16 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class LoginController extends AbstractController
 {
     #[Route('/admin/login', name: 'app_login')]
-    public function index(AuthenticationUtils $authenticationUtils, Request $request): Response
+    public function index(): Response
     {
-        dump($authenticationUtils->getLastAuthenticationError());
+        return $this->render('admin/login/index.html.twig');
 
-        $form = $this->createForm(LoginFormType::class);
-
-            $form->handleRequest($request);
-
-            if ($form->isSubmitted() && $form->isValid()) {
-
-                return $this->redirectToRoute('app_login_check');
-            }
-
-            return $this->render('admin/login/index.html.twig', [
-                'form' => $form->createView(),
-            ]);
     }
 
     #[Route('/admin/loginCheck', name: 'app_login_check')]
     public function loginCheck():Response
     {
-        return $this->render('admin/login/dashboard.html.twig');
+        return $this->render('admin/login/loginCheck.html.twig');
     }
 
 }

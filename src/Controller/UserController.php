@@ -3,16 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Form\LoginFormType;
 use App\Form\UserFormType;
 use App\Repository\UserRepository;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -59,17 +54,18 @@ class UserController extends AbstractController
 
         $user = new User();
 
-        $form = $this->createForm(UserFormType::class);
+        $form = $this->createForm(UserFormType::class,$user);
 
         $form->handleRequest($request);
+        //dd($user);
 
-        if ($form->isSubmitted()) {
-            if ($form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
                 // Persist the users to the database
                 $roles=$form->get('roles')->getData();
-                $roles = array_unique($roles);
+                //$roles = array_unique($roles);
                 $user->setRoles($roles);
-                 $passwordHasher = $hasher->hashPassword($user, $user->getPassword());
+                //dd($user);
+                $passwordHasher = $hasher->hashPassword($user, $user->getPassword());
 
                  $user->setPassword($passwordHasher);
                // dd($user);
@@ -79,14 +75,11 @@ class UserController extends AbstractController
                 $em->persist($user);
                 $em->flush();
 
-                $this->addFlash('success', 'Le formulaire a été soumis avec succès.');
-            } else {
-                $this->addFlash('errors', "Le formulaire n'a pas été soumis avec succès.");
+                $this->addFlash('success',
+                              "L'utilisateur a été créé avec succès.");
+                return $this->redirect("app_user_list");
             }
-        }
-
-
-        return $this->render('admin/users/register.html.twig', [
+             return $this->render('admin/users/register.html.twig', [
             'form' => $form->createView(),
             'errors' => $form->getErrors(true),
             'users'=> $user
@@ -122,7 +115,7 @@ class UserController extends AbstractController
     #[Route('/admin/users/delete/{id} ', name: 'app_user_delete', methods: ['GET'])]
     public function deleteUser($id, EntityManagerInterface $em, UserRepository $userRepository): Response
     {
-        $user = $userRepository->findOneBy(['id' => $id]);
+        $user = serviceEntityRepository::User->findOneBy(['id' => $id]);
         if (!$user) {
             $this->addFlash(
                 'Success',
