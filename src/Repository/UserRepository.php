@@ -16,22 +16,21 @@ class UserRepository extends ServiceEntityRepository
 
     public function findAllByRoles(array $roles = [])
     {
-        $query = $this->createQueryBuilder('u')
+        $queryBuilder = $this->createQueryBuilder('u')
             ->orderBy('u.firstname', 'ASC');
 
         if (!empty($roles)) {
-            $expr = $query->expr();
-            $orX = $expr->orX();
+            $expressionBuilder = $queryBuilder->expr();
+            $orExpression = $expressionBuilder->orX();
 
             foreach ($roles as $role) {
-                $orX->add($expr->like('u.roles', $expr->literal('%' . $role . '%')));
+                $orExpression->add($expressionBuilder->like('u.roles', $expressionBuilder->literal('%' . $role . '%')));
             }
 
-            $query->andWhere($orX);
+            $queryBuilder->andWhere($orExpression);
         }
 
-        return $query->getQuery()->getResult();
+        return $queryBuilder->getQuery()->getResult();
     }
-
 
 }

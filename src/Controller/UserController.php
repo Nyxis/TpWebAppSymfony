@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\UserFormType;
 use App\Repository\UserRepository;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,15 +19,15 @@ class UserController extends AbstractController
 {
     #[Route('/admin/users', name: 'app_user_list', methods: ['GET'])]
     public function listUsers(
+        EntityManagerInterface $em,
         Request $request,
-        PaginatorInterface $paginator,
-        UserRepository $userRepository,
+        PaginatorInterface $paginatorInterface,
     ):Response {
-
-        $users = $paginator->paginate(
-            $userRepository->findAll(),
+        $data = $em->getRepository(User::class)->findAll();
+        $users = $paginatorInterface->paginate(
+            $data,
             $request->query->getInt('page',1),
-        12 );
+        8 );
 
         return $this->render('admin/users/list.html.twig', [
             'users'=> $users
@@ -76,8 +75,8 @@ class UserController extends AbstractController
                 $em->flush();
 
                 $this->addFlash('success',
-                              "L'utilisateur a été créé avec succès.");
-                return $this->redirectToRoute('app_user_list');
+                              "The user was created successfully.");
+                //return $this->redirectToRoute('app_user_list');
             }
              return $this->render('admin/users/register.html.twig', [
             'form' => $form->createView(),
@@ -139,7 +138,7 @@ class UserController extends AbstractController
 
         $this->addFlash(
             'success',
-            'The new product has been deleted successfully'
+            'The user has been deleted successfully'
         );
         return $this->redirectToRoute('app_user_list');
     }

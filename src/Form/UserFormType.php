@@ -29,8 +29,7 @@ class UserFormType extends AbstractType
                     'choices' => ['Admin' => Roles::ADMIN,
                         'User' => Roles::USER,
                         'Super Admin' => Roles::SUPER_ADMIN],]
-            )
-            ->add('register', SubmitType::class, ['label' => 'Register']);
+            );
     }
     public function configureOptions(OptionsResolver $resolver): void
     {
