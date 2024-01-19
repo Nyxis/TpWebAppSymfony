@@ -21,7 +21,7 @@ class UserManagerController extends AbstractController
             return $this->render('admin/nouser.html.twig');
         }
 
-        if (!($request->isMethod('DELETE') && $request->isMethod('PUT')))
+        if (!$request->isMethod('DELETE') && !$request->isMethod('PUT'))
             $message = "créez, éditez ou supprimez des utilisateurs";
 
         return $this->render('admin/users.html.twig', [

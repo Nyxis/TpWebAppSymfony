@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -19,21 +18,9 @@ class EntryController extends AbstractController
     public function login(Request $request): Response
     {
 //        dump($authenticationUtils->getLastAuthenticationError());
-
         $go = "GO";
-
-
         return $this->render('/auth/login.html.twig', ['go' => $go]);
     }
-
-//    #[Route(path: '/auth/login_check')]
-//    public function loginCheck(Request $request): Response
-//    {
-//        printf("in the Checkcontroller");
-//        if ($request->isMethod('POST')) return $this->render('/auth/success.html.twig', []);
-//        else return $this->render('/auth/login.html.twig', []);
-//
-//    }
 
     #[Route(path: '/auth/success')]
     public function success(Request $request): Response
@@ -44,11 +31,9 @@ class EntryController extends AbstractController
         return $this->render('/auth/success.html.twig', [
             'welldone' => $wellDone, "loginUrlRef"=>$loginUrlRef
         ]);
-
     }
 
     /*ADMIN PART*/
-
 
     #[Route(path: '/admin/login')]
     public function loginAdmin(FormFactoryInterface $formFactory, Request $request, AuthenticationUtils $authenticationUtils): Response

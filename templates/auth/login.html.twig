@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+    <link rel="stylesheet" href="../../assets/twstyle.css">
     <title>Formulaire</title>
 </head>
 <body>
@@ -11,8 +12,8 @@
 
 {% block body %}
 
-    <form action="/auth/success" method="get">
-        <button type="submit">Accéder au site</button>
+    <form  action="/auth/success" method="get">
+        <button class="bg-blue-500" style="color: #3b82f6" type="submit">Accéder au site</button>
     </form>
 
 {% endblock %}
@@ -22,14 +23,3 @@
 </html>
 
 
-{#    {{ form_start(form,{action:path('/auth/login_check')}) }} #}
-
-    {#    <div class="row"> #}
-    {#        <div class="col"> #}
-    {#            {{ form_row(form.username) }} #}
-    {#        </div> #}
-    {#        <div class="col" id="some-custom-id"> #}
-    {#            {{ form_row(form.password) }} #}
-    {#        </div> #}
-    {#    </div> #}
-    {#    {{ form_end(form) }} #}
