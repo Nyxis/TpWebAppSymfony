@@ -16,14 +16,15 @@ class LoginController extends AbstractController
     #[Route('/admin/login', name: 'app_login')]
     public function index(): Response
     {
-        return $this->render('admin/login/index.html.twig');
+        return $this->render('admin/login/login.html.twig');
 
     }
 
     #[Route('/admin/loginCheck', name: 'app_login_check')]
     public function loginCheck():Response
     {
-        return $this->render('admin/login/loginCheck.html.twig');
+
+        return $this->render('admin/login/LoginCheck.html.twig');
     }
 
 }

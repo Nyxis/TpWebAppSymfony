@@ -15,16 +15,19 @@
                     <div class="card">
                         <div class="card-body">
                             <h2>
-                                <a href="{{ path('app_user_show', { 'id':user.id})}}">{{ user.lastname }}</a>
+                                <a href="{{ path('app_user_show', { 'id':user.id})}}">Id: {{ user.id}}</a>
                             </h2>
-                            <p>{{user.firstname}}</p>
-                            <p>{{ user.email }}</p>
+                            <p>Lastname: {{ user.lastname }}</p>
+                            <p>Firstname: {{user.firstname}}</p>
+                            <p>Email: {{ user.email }}</p>
                             {% for roles in user.roles %}
-                            <p>{{ roles}}</p>
+                            <p>Roles: {{ roles}}</p>
                             {% endfor %}
                         </div>
                     </div>
                 </div>
+                <a href="{{ path('app_user_edit', { id: user.id }) }}" class="btn btn-info">Edit</a>
+                <a href="{{ path('app_user_delete', { id: user.id }) }}" class="btn btn-warning">Delete</a>
             {% endfor %}
 
         </div>

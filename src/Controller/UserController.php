@@ -30,7 +30,7 @@ class UserController extends AbstractController
             $request->query->getInt('page',1),
         12 );
 
-        return $this->render('admin/users/index.html.twig', [
+        return $this->render('admin/users/list.html.twig', [
             'users'=> $users
         ]);
     }
@@ -77,7 +77,7 @@ class UserController extends AbstractController
 
                 $this->addFlash('success',
                               "L'utilisateur a été créé avec succès.");
-                return $this->redirect("app_user_list");
+                return $this->redirectToRoute('app_user_list');
             }
              return $this->render('admin/users/register.html.twig', [
             'form' => $form->createView(),
@@ -89,7 +89,8 @@ class UserController extends AbstractController
     #[Route('/admin/users/{id}', name: 'app_user_edit', methods: ['GET', 'POST'])]
     public function editUser($id, EntityManagerInterface $em, UserRepository $userRepository, Request $request): Response
     {
-        $user = $userRepository->findOneBy(['id' => $id]);
+        $user = $em->getRepository(User::class)->findOneBy(['id' => $id]);
+        //$user = $userRepository->findOneBy(['id' => $id]);
         $form = $this->createForm(UserFormType::class, $user);
         $form->handleRequest($request);
 
@@ -113,13 +114,13 @@ class UserController extends AbstractController
     }
 
     #[Route('/admin/users/delete/{id} ', name: 'app_user_delete', methods: ['GET'])]
-    public function deleteUser($id, EntityManagerInterface $em, UserRepository $userRepository): Response
+    public function deleteUser($id, EntityManagerInterface $em): Response
     {
-        $user = serviceEntityRepository::User->findOneBy(['id' => $id]);
+        $user = $em->getRepository(User::class)->findOneBy(['id' => $id]);;
         if (!$user) {
             $this->addFlash(
                 'Success',
-                'Don\'t find product in question!'
+                'Don\'t find the user in question!'
             );
             return $this->redirectToRoute('app_user_list');
         }
