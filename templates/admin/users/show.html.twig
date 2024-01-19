@@ -1,26 +1,26 @@
 {% extends 'admin/users/_layout.html.twig' %}
 
 {% block title %}
-    User list
+	User list
 {% endblock %}
 
 
 {% block body %}
 
-    <div class="card mx-5 mt-4" style="width: 18rem;">
-        <div class="card-body">
-            <h2 class="card-title">{{ user.firstname }}</h2>
-            <ul>
-                <li>{{ user.lastname }}</li>
-                <li>{{ user.email}}</li>
-                {% for roles in user.roles %}
-                <li>{{ roles}}</li>
-                {% endfor %}
-            </ul>
+	<div class="card mx-5 mt-4" style="width: 18rem;">
+		<div class="card-body">
+			<h2 class="card-title">{{ user.firstname }}</h2>
+			<ul>
+				<li>{{ user.lastname }}</li>
+				<li>{{ user.email}}</li>
+				{% for roles in user.roles %}
+					<li>{{ roles}}</li>
+				{% endfor %}
+			</ul>
 
-            <a href="{{ path('app_user_edit', { id: user.id }) }}" class="btn btn-info">Edit</a>
-            <a href="{{ path('app_user_delete', { id: user.id }) }}" class="btn btn-warning">Delete</a>
-        </div>
-    </div>
+			<a href="{{ path('app_user_edit', { id: user.id }) }}" class="btn btn-info">Edit</a>
+			<a href="{{ path('app_user_delete', { id: user.id }) }}" class="btn btn-warning">Delete</a>
+		</div>
+	</div>
 
 {% endblock %}

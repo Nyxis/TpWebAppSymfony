@@ -71,7 +71,7 @@ class UserController extends AbstractController
                // dd($user);
                // print_r($user-> getRoles());
 
-                //var_dump($users);
+                //var_dump($user);
                 $em->persist($user);
                 $em->flush();
 
