@@ -1,18 +1,18 @@
 {% extends 'admin/users/_layout.html.twig' %}
 
 {% block body %}
-    <div class="container">
-        {% for message in app.flashes('success') %}
-            <div class="alert alert-success mt-4">
-                {{ message }}
-            </div>
-        {% endfor %}
+    <div class="bg-blue-500 text-black py-8">
+        <div class="container mx-auto">
+            {% for message in app.flashes('success') %}
+                <div class="bg-green-500 text-white p-4 mb-4 rounded">{{ message }}</div>
+            {% endfor %}
 
+            <h1 class="text-2xl font-bold text-black mb-4">
+                Edit User
+            </h1>
 
-        <h1 class="mt-4">
-            edit an user
-        </h1>
-
-        {{ form(form)}}
+            {{ form(form, {'attr': {'class': 'mt-2 p-4 bg-white rounded'}}) }}
+        </div>
     </div>
 {% endblock %}
+

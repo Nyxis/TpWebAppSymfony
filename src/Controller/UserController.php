@@ -87,7 +87,12 @@ class UserController extends AbstractController
     }
 
     #[Route('/admin/users/{id}', name: 'app_user_edit', methods: ['GET', 'POST'])]
-    public function editUser($id, EntityManagerInterface $em, UserRepository $userRepository, Request $request): Response
+    public function editUser(
+        $id,
+        EntityManagerInterface $em,
+        UserPasswordHasherInterface $hasher,
+        Request $request
+    ): Response
     {
         $user = $em->getRepository(User::class)->findOneBy(['id' => $id]);
         //$user = $userRepository->findOneBy(['id' => $id]);
@@ -97,6 +102,10 @@ class UserController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             // dd($form->getData);
             $user = $form->getData();
+            //dd($user);
+            $passwordHasher = $hasher->hashPassword($user, $user->getPassword());
+
+            $user->setPassword($passwordHasher);
             // dd($user);
             $em->persist($user);
             $em->flush();
@@ -134,5 +143,35 @@ class UserController extends AbstractController
         );
         return $this->redirectToRoute('app_user_list');
     }
+
+
+    #[Route('/admin/superAdmins ', name: 'app_user_superAdmin', methods: ['GET'])]
+    public function displaySuperAdmins(UserRepository $userRepository){
+
+        $users = $userRepository->findAllByRoles(['ROLE_SUPER_ADMIN']);
+
+        return $this->render('admin/users/superAdmins.html.twig',[
+            'users' => $users,
+        ]);
+    }
+
+    #[Route('/admin/admins ', name: 'app_user_admin', methods: ['GET'])]
+    public function displayAdmins(UserRepository $userRepository){
+        $users = $userRepository->findAllByRoles(['ROLE_ADMIN']);
+
+        return $this->render('admin/users/administrators.html.twig',[
+            'users' => $users,
+        ]);
+    }
+
+    #[Route('/admin/ordinaryUsers ', name: 'app_ordinary_user', methods: ['GET'])]
+    public function displayOrdinaryUsers(UserRepository $userRepository){
+        $users = $userRepository->findAllByRoles(['ROLE_USER']);
+
+        return $this->render('admin/users/ordinaryUsers.html.twig',[
+            'users' => $users,
+        ]);
+    }
+
 
 }

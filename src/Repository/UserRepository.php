@@ -14,9 +14,24 @@ class UserRepository extends ServiceEntityRepository
         parent::__construct($registry, User::class);
     }
 
-    public function findAllSuperAdmins()
+    public function findAllByRoles(array $roles = [])
     {
-        return $this->findAllByRoles(Roles::SUPER_ADMIN);
+        $query = $this->createQueryBuilder('u')
+            ->orderBy('u.firstname', 'ASC');
+
+        if (!empty($roles)) {
+            $expr = $query->expr();
+            $orX = $expr->orX();
+
+            foreach ($roles as $role) {
+                $orX->add($expr->like('u.roles', $expr->literal('%' . $role . '%')));
+            }
+
+            $query->andWhere($orX);
+        }
+
+        return $query->getQuery()->getResult();
     }
+
 
 }

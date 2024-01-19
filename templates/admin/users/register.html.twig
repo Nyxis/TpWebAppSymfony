@@ -1,39 +1,33 @@
 {% extends 'admin/users/_layout.html.twig' %}
 
-
-{% form_theme form 'bootstrap_5_layout.html.twig' %}
-
 {% block body %}
+    <div class="container mx-auto mt-8">
+        {% block flash_messages %}
+            {% for flashMessage in app.flashes('success') %}
+                <div class="bg-green-500 text-white p-4 mb-4 rounded">
+                    {{ flashMessage }}
+                </div>
+            {% endfor %}
 
-    <div class="container">
-    {% block flash_messages %}
-        {% for flashMessage in app.flashes('success') %}
-            <div class="alert alert-success mt-4">
-                {{ flashMessage }}
-            </div>
-        {% endfor %}
+            {% for flashMessage in app.flashes('error') %}
+                <div class="bg-red-500 text-white p-4 mb-4 rounded">
+                    {{ flashMessage }}
+                </div>
+            {% endfor %}
+        {% endblock %}
 
-        {% for flashMessage in app.flashes('error') %}
-            <div class="alert alert-danger">
-                {{ flashMessage }}
-            </div>
-        {% endfor %}
+        <h2 class="text-2xl font-bold mt-4">Register</h2>
 
-
-        <h2 class="mt-4">register</h2>
         {{ form_start(form, {'action': path('app_user_register')}) }}
-        {{ form_row(form.firstname) }}
-        {{ form_row(form.lastname) }}
-        {{ form_row(form.email) }}
-        {{ form_row(form.password) }}
-        {{ form_row(form.roles) }}
-        {{ form_end(form) }}
-
-        {{  dump(app) }}
+        <div class="grid grid-cols-1 gap-4 mt-4">
+            {{ form_row(form.firstname, {'attr': {'class': 'p-2 border rounded'}}) }}
+            {{ form_row(form.lastname, {'attr': {'class': 'p-2 border rounded'}}) }}
+            {{ form_row(form.email, {'attr': {'class': 'p-2 border rounded'}}) }}
+            {{ form_row(form.password, {'attr': {'class': 'p-2 border rounded'}}) }}
+            {{ form_row(form.roles, {'attr': {'class': 'p-2 border rounded'}}) }}
         </div>
-    {% endblock %}
-
-
-
-
+        <button type="submit" class="bg-blue-500 text-white px-4 py-2 mt-4 rounded">Register</button>
+        {{ form_end(form) }}
+    </div>
 {% endblock %}
+
