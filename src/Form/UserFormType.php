@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Roles;
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -25,9 +26,9 @@ class UserFormType extends AbstractType
             ->add(
                 'roles', ChoiceType::class, ['label' => 'roles',
                     'multiple' => true,
-                    'choices' => ['Admin' => 'ROLE_ADMIN',
-                        'User' => 'ROLE_USER',
-                        'Super Admin' => 'ROLE_SUPER_ADMIN'],]
+                    'choices' => ['Admin' => Roles::ADMIN,
+                        'User' => Roles::USER,
+                        'Super Admin' => Roles::SUPER_ADMIN],]
             )
             ->add('register', SubmitType::class, ['label' => 'Register']);
     }
