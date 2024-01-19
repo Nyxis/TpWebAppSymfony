@@ -12,28 +12,33 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+
 class CreateUserController extends AbstractController
 {
     #[Route('/create/user', name: 'app_create_user')]
-    public function new(Request $request, EntityManagerInterface $em): Response
+    public function new(Request $request, EntityManagerInterface $em, UserPasswordHasherInterface $hasher): Response
     {
         $user = new User();
+   
+   
 
         $form = $this->createForm(UserType::class, $user);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            // $form->getData() holds the submitted values
-            // but, the original `$task` variable has also been updated
+          
+            $passwordHasher = $hasher->hashPassword($user, $user->getPassword());
+            $user->setPassword($passwordHasher);
             $user = $form->getData();
+
             $em->persist($user);
             $em->flush();
-             
-            // ... perform some action, such as saving the task to the database
+           
 
             return $this->redirectToRoute('app_create_user_success');
         }
-
+    
 
 
         return $this->render('create_user/index.html.twig', [
