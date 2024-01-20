@@ -81,7 +81,7 @@ class UserManagerController extends AbstractController
     {
 
         $userslist = $userDoctrineRepository->findUsersByRole($role);
-        $message = 'liste des admins';
+        $message = 'liste des utilsateur avec role : ' . $role;
         dump($userslist);
         return $this->render('admin/users.html.twig', [
             'userslist' => $userslist,
