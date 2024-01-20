@@ -40,4 +40,5 @@ class UserRepository extends ServiceEntityRepository
 
         return $query->getResult();
     }
+
 }

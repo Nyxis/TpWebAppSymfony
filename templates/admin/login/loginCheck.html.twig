@@ -1,0 +1,15 @@
+{% extends 'admin/admin/_layout.html.twig' %}
+
+{% block body %}
+    <div class="text-center mt-8">
+        <h1 class="text-4xl font-bold mb-4">Welcome to the Admin Dashboard!</h1>
+
+        <div class="mb-4">
+            <div class="imgcontainer">
+                <img src="{{ asset('images/loginCheck.png') }}" alt="checkPhoto" class="w-full h-auto">
+            </div>
+        </div>
+
+        <a href="{{ path('app_user_list') }}" class="text-blue-500 hover:underline">See All Users</a>
+    </div>
+{% endblock %}
