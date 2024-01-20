@@ -3,18 +3,23 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <link rel="stylesheet" href="../../assets/styles/twstyle.css">
-    <title>Formulaire</title>
+
+    {% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('styles/app.css') }}">
+    {% endblock %}
+    <title>portail</title>
 </head>
 <body>
-<h1>Bonjour !</h1>
-
+<h1 class="text-5xl text-center	mt-20 ">Bonjour !</h1>
+<br><br>
 
 {% block body %}
 
+<div class=" flex  p-8 justify-center">
     <form  action="/auth/success" method="get">
-        <button class="bg-blue-500" style="color: #3b82f6" type="submit">Accéder au site</button>
+        <button class="bg-gray-200 p-20 text-3xl"  type="submit">Accéder au site</button>
     </form>
+</div>
 
 {% endblock %}
 

@@ -3,18 +3,31 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+
+    {% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('styles/app.css') }}">
+    {% endblock %}
     <title>Formulaire</title>
 </head>
 <body>
-<h1>connectez-vous à l'espace administrateur</h1>
+
 
 
 
 {% block body %}
 
+    <h1 class="text-grey-800 text-4xl text-center font-extrabold mt-20" >connectez-vous à l'espace administrateur</h1>
 
-    <div>
-        {{ form(form) }}
+    <div class="flex flex-row justify-around space-x-4  p-8 mx-80">
+        {{ form_start(form) }}
+
+        {{ form_row(form._username) }}
+        {{ form_row(form._password) }}
+
+
+        <div class="bg-gray-200 p-8 mt-6 text-2xl text-center"   >{{ form_row(form.login) }} </div>
+
+        {{ form_end(form) }}
     </div>
 
 

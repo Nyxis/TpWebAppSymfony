@@ -7,24 +7,37 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    {% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('styles/app.css') }}">
+    {% endblock %}
     <title>Success</title>
 </head>
 <body>
+{% block body %}
 
-<h1>tu es connecté en Admin</h1>
-<h2>Salut à toi, {{ username }}!</h2>
+<h1 class="text-grey-800 text-4xl text-center font-extrabold mt-20">tu es connecté en Admin</h1>
+<h2 class="text-grey-800 text-2xl text-center font-extrabold mt-20 mb-5">Salut à toi, {{ username }}!</h2>
 <div>
 
 
+<div class="flex justify-center items-center">
 
-    <img src="{{ asset('images/trio.gif') }}" alt="Thrash Metal Admin">
+    <img  src="{{ asset('images/trio.gif') }}" alt="Thrash Metal Admin">
+</div>
+
+    <div class="flex flex-row space-x-4 justify-center  p-8" >
     <form action="/admin/create" method="get">
-        <button type="submit">Créer un nouvel utilisateur</button>
+        <button class="bg-gray-200 p-8 mt-6" type="submit">Créer un nouvel utilisateur</button>
     </form>
     <form action="/admin/users" method="get">
-        <button type="submit">voir les utilisateurs existants</button>
+        <button class="bg-gray-200 p-8 mt-6" type="submit">voir les utilisateurs existants</button>
     </form>
-
 </div>
+</div>
+
+
+{% endblock %}
+
 </body>
 </html>

@@ -14,7 +14,6 @@ class UserDoctrineRepository extends  ServiceEntityRepository
         parent::__construct($registry, User::class);
     }
 
-
     public function findUsersByRole($role)
     {
         return $this->createQueryBuilder('user')

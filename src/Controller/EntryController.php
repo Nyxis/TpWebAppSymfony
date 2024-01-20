@@ -29,7 +29,7 @@ class EntryController extends AbstractController
         $loginUrlRef = '/admin/login';
 
         return $this->render('/auth/success.html.twig', [
-            'welldone' => $wellDone, "loginUrlRef"=>$loginUrlRef
+            'welldone' => $wellDone, "loginUrlRef" => $loginUrlRef
         ]);
     }
 
@@ -38,7 +38,7 @@ class EntryController extends AbstractController
     #[Route(path: '/admin/login')]
     public function loginAdmin(FormFactoryInterface $formFactory, Request $request, AuthenticationUtils $authenticationUtils): Response
     {
-     dump($authenticationUtils->getLastAuthenticationError());
+        dump($authenticationUtils->getLastAuthenticationError());
 
         $form = $formFactory->createNamedBuilder('')
             ->setMethod('POST')
@@ -60,10 +60,10 @@ class EntryController extends AbstractController
     #[Route(path: '/admin/success')]
     public function successAdmin(Request $request): Response
     {
-       $userName = $this->getUser()->getUserIdentifier();
-       $formUrlRef = '/admin/create';
+        $userName = $this->getUser()->getUserIdentifier();
+        $formUrlRef = '/admin/create';
 
-        return $this->render('/admin/success.html.twig', ["username" => $userName,"formurlref" => $formUrlRef]);
+        return $this->render('/admin/success.html.twig', ["username" => $userName, "formurlref" => $formUrlRef]);
 
     }
 }

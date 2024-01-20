@@ -17,7 +17,7 @@ class CreationController extends AbstractController
     public function createUser(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $userPasswordHasher): Response
     {
         $user = new User();
-        $form = $this->createForm(UserType::class, $user, );
+        $form = $this->createForm(UserType::class, $user,);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
