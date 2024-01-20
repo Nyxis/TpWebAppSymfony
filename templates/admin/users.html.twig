@@ -43,10 +43,11 @@
 
         <thead class="bg-white border-b" style="border: solid 2px;  border-collapse: collapse;">
         <tr>
-            <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left" >Prénom</th>
-            <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">Nom</th>
-            <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">Email</th>
-            <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left" colspan="2">Actions</th>
+            <th scope="col" class="text-sm font-bold text-gray-900 px-6 py-4 text-left" >Prénom</th>
+            <th scope="col" class="text-sm font-bold text-gray-900 px-6 py-4 text-left">Nom</th>
+            <th scope="col" class="text-sm font-bold text-gray-900 px-6 py-4 text-left">Email</th>
+            <th scope="col" class="text-sm font-bold text-gray-900 px-14 py-4 text-left">Rôles</th>
+            <th scope="col" class="text-sm font-bold text-gray-900 px-6 py-4 text-left" colspan="2">Actions</th>
         </tr>
         </thead >
 
@@ -55,14 +56,18 @@
         {% for user in usersList %}
 
             <tr class="bg-white border-b" style="border: solid 1px;  border-collapse: collapse;">
-                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900" >{{ user.firstname }}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-normal text-gray-900" >{{ user.firstname }}</td>
 
-                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap" >{{ user.lastname }}</td>
+                <td class="text-sm text-gray-900 font-normal px-6 py-4 whitespace-nowrap" >{{ user.lastname }}</td>
 
-                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ user.email }}</td>
+                <td class="text-sm text-gray-900 font-normal px-6 py-4 whitespace-nowrap">{{ user.email }}</td>
 
+                <td class="text-sm text-pink-950 font-extrabold  px-2 py-4 whitespace-nowrap" >
+                {% if "ROLE_USER" in user.roles %} USER {% else %} &ensp;&ensp;&ensp;&ensp;&ensp; {% endif %} <span> &ensp;</span>
+                {% if "ROLE_ADMIN" in user.roles %} ADMIN {% else %} &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp; {% endif %} <span> &ensp;</span>
+                {% if "ROLE_SUPER_ADMIN" in user.roles %} SUPERADMIN {% else %}{% endif %}<span>&ensp;</span></td>
 
-                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"><a href="/admin/user/update/{{ user.id }}">MODIFIER</a> <span> ----  </span>
+                <td class="text-sm text-red-800 font-medium px-6 py-4 whitespace-nowrap"><a href="/admin/user/update/{{ user.id }}">MODIFIER</a> <span> ----  </span>
                     <a href="/admin/user/delete/{{ user.id }}">SUPPRIMER</a>
                 </td>
             </tr>
