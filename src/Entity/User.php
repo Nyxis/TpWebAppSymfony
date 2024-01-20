@@ -14,6 +14,9 @@ use Symfony\Component\Security\Core\User\UserInterface;
     protected string $lastName;
     protected string $eMail;
     protected string $password;
+
+
+
     protected array $roles;
 
     public function setFirstName(string $firstName): void

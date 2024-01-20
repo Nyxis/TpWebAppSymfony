@@ -5,36 +5,63 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/assets/styles/twstyle.css">
     <title>Document</title>
 </head>
 <body>
-<table>
-    <thead>
-        <tr>
-            <th colspan="4">LISTE DES UTILISATEURS</th>
-        </tr>
+<div class = "flex flex-row" style="flex-direction: row;">
+<form  action="/admin/users/filter/ROLE_USER" method="get">
+    <button class="bg-blue-500 flex" style="color: #3b82f6" type="submit">afficher les Roles USER</button>
+</form>
+<form  action="/admin/users/filter/ROLE_ADMIN" method="get">
+    <button class="bg-blue-500 flex" style="color: #3b82f6" type="submit">afficher les Roles ADMIN</button>
+</form>
+<form  action="/admin/users/filter/ROLE_SUPER_ADMIN" method="get">
+    <button class="bg-blue-500 flex" style="color: #3b82f6" type="submit">afficher les Roles SUPERADMIN</button>
+</form>
+</div>
+
+{#DEBUT TABLEAU USERS#}
+
+<table class="table-auto w-full border-solid border-gray-300" style="border-color: #151717; border-width: 2px; border-style: solid;"
+>
+    <caption class="bg-gray-200" style="color: #2d3748;">
+        LISTE DES UTILISATEURS
+    </caption>
+
+    <thead >
+    <tr  >
+        <th >Prénom</th>
+        <th >Nom</th>
+        <th >Email</th>
+        <th colspan="2">Actions</th>
+    </tr>
     </thead>
-    <tbody>
 
-        {% for user in userslist  %}
+    <tbody >
+
+    {% for user in userslist %}
+
         <tr>
-        <td>{{ user.firstname }}</td>
-        <td>{{ user.lastname }}</td>
-        <td>{{ user.email }}</td>
-        <td> <a href="/admin/user/update/{{user.id}}">MODIFIER</a> <span> ----  </span>
-            <a href="/admin/user/delete/{{user.id}}">SUPPRIMER</a>
+            <td>{{ user.firstname }}</td>
 
+            <td>{{ user.lastname }}</td>
+
+            <td>{{ user.email }}</td>
+
+            <td ></td>
+            <td><a  href="/admin/user/update/{{ user.id }}">MODIFIER</a> <span> ----  </span>
+                <a href="/admin/user/delete/{{ user.id }}">SUPPRIMER</a>
             </td>
         </tr>
+    {% endfor %}
 
-        {% endfor %}
-<h3 class="text-red-500" style="color: firebrick">{{ message }}</h3>
     </tbody>
 </table>
+{#FIN TABLEAU USERS#}
 
+<h2 class="mt-6"><a href="/admin/create" class="text-blue-600 hover:text-blue-800">Créer un nouvel utilisateur</a></h2>
 
-
-
-<h2> <a href="/admin/create">Créer un nouvel utilisateur</a></h2>
+<h3 class="text-red-500" style="color: firebrick">{{ message }}</h3>
 </body>
 </html>

@@ -1,9 +1,11 @@
 <?php
 namespace App\Controller;
 
+use App\Entity\Roles;
 use App\Entity\User;
 use App\Form\UserUpdateType;
 use App\Repository\UserDoctrineRepository;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -73,5 +75,17 @@ class UserManagerController extends AbstractController
             ]);
         }
         return $this->render('admin/update.html.twig', ['form' => $form->createView()]);
+    }
+    #[Route ('/admin/users/filter/{role}')]
+    public function filterUsers( Request $request, UserDoctrineRepository $userDoctrineRepository, $role): Response
+    {
+
+        $userslist = $userDoctrineRepository->findUsersByRole($role);
+        $message = 'liste des admins';
+        dump($userslist);
+        return $this->render('admin/users.html.twig', [
+            'userslist' => $userslist,
+            'message' => $message
+        ]);
     }
 }

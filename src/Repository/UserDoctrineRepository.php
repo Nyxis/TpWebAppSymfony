@@ -15,4 +15,13 @@ class UserDoctrineRepository extends  ServiceEntityRepository
     }
 
 
+    public function findUsersByRole($role)
+    {
+        return $this->createQueryBuilder('user')
+            ->where('user.roles LIKE :role')
+            ->setParameter('role', '%"'.$role.'"%')
+            ->getQuery()
+            ->getResult();
+    }
+
 }
