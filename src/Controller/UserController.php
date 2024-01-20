@@ -46,6 +46,7 @@ class UserController extends AbstractController
     public function createUser(
         UserPasswordHasherInterface $hasher,
         EntityManagerInterface $em,
+        UserRepository $userRepository,
         Request $request
     ): Response {
         $user = new User();
@@ -54,20 +55,31 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            if (!$form->isValid()) {
-                $this->addFlash('error', 'Please fill in all the fields correctly.');
-            }else{
-            $roles = $form->get('roles')->getData();
-            $user->setRoles($roles);
+            $email = $user->getEmail();
+            $emails = $userRepository->findAllEmails();
+            //var_dump($email, $emails);
+            $emailExists = false;
+            foreach ($emails as $existingEmail) {
+                if ($email === $existingEmail['email']) {
+                    $emailExists = true;
+                    break;
+                }
+            }
+            if ($emailExists) {
+                $this->addFlash('error', 'The user with this email is already registered.');
+                // on ne peut pas faire une inscription (We cannot proceed with registration)
+            } else {
+                //$roles = $form->get('roles')->getData();
+               // $user->setRoles($roles);
 
-            $passwordHash = $hasher->hashPassword($user, $user->getPassword());
-            $user->setPassword($passwordHash);
+                $passwordHash = $hasher->hashPassword($user, $user->getPassword());
+                $user->setPassword($passwordHash);
 
-            $em->persist($user);
-            $em->flush();
+                $em->persist($user);
+                $em->flush();
 
-            $this->addFlash('success', 'The user was created successfully.');
-        }
+                $this->addFlash('success', 'The user was created successfully.');
+            }
         }
 
         return $this->render('admin/users/register.html.twig', [
@@ -104,7 +116,7 @@ class UserController extends AbstractController
 
             $this->addFlash(
                 'success',
-                'The new product has been edited successfully'
+                'The new user has been edited successfully'
             );
             //return $this->redirectToRoute('app_user_list');
         }

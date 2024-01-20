@@ -32,5 +32,12 @@ class UserRepository extends ServiceEntityRepository
 
         return $queryBuilder->getQuery()->getResult();
     }
+    public function findAllEmails()
+    {
+        $query = $this->createQueryBuilder('u')
+            ->select('u.email')
+            ->getQuery();
 
+        return $query->getResult();
+    }
 }
