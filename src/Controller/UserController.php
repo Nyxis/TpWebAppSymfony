@@ -42,48 +42,41 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/users/add', name: 'app_user_register')]
+    #[Route('/admin/users/create', name: 'app_user_register')]
     public function createUser(
         UserPasswordHasherInterface $hasher,
         EntityManagerInterface $em,
-        Request $request,
-    ): Response
-    {
-        //dump($authenticationUtils->getLastAuthenticationError());
-
+        Request $request
+    ): Response {
         $user = new User();
-
-        $form = $this->createForm(UserFormType::class,$user);
+        $form = $this->createForm(UserFormType::class, $user);
 
         $form->handleRequest($request);
-        //dd($user);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-                // Persist the users to the database
-                $roles=$form->get('roles')->getData();
-                //$roles = array_unique($roles);
-                $user->setRoles($roles);
-                //dd($user);
-                $passwordHasher = $hasher->hashPassword($user, $user->getPassword());
+        if ($form->isSubmitted()) {
+            if (!$form->isValid()) {
+                $this->addFlash('error', 'Please fill in all the fields correctly.');
+            }else{
+            $roles = $form->get('roles')->getData();
+            $user->setRoles($roles);
 
-                 $user->setPassword($passwordHasher);
-               // dd($user);
-               // print_r($user-> getRoles());
+            $passwordHash = $hasher->hashPassword($user, $user->getPassword());
+            $user->setPassword($passwordHash);
 
-                //var_dump($user);
-                $em->persist($user);
-                $em->flush();
+            $em->persist($user);
+            $em->flush();
 
-                $this->addFlash('success',
-                              "The user was created successfully.");
-                //return $this->redirectToRoute('app_user_list');
-            }
-             return $this->render('admin/users/register.html.twig', [
+            $this->addFlash('success', 'The user was created successfully.');
+        }
+        }
+
+        return $this->render('admin/users/register.html.twig', [
             'form' => $form->createView(),
             'errors' => $form->getErrors(true),
-            'users'=> $user
+            'user' => $user,
         ]);
     }
+
 
     #[Route('/admin/users/{id}', name: 'app_user_edit', methods: ['GET', 'POST'])]
     public function editUser(
@@ -111,9 +104,9 @@ class UserController extends AbstractController
 
             $this->addFlash(
                 'success',
-                'The new product has been editted successfully'
+                'The new product has been edited successfully'
             );
-            return $this->redirectToRoute('app_user_list');
+            //return $this->redirectToRoute('app_user_list');
         }
 
         return $this->render('admin/users/edit.html.twig', [
@@ -125,13 +118,6 @@ class UserController extends AbstractController
     public function deleteUser($id, EntityManagerInterface $em): Response
     {
         $user = $em->getRepository(User::class)->findOneBy(['id' => $id]);;
-        if (!$user) {
-            $this->addFlash(
-                'Success',
-                'Don\'t find the user in question!'
-            );
-            return $this->redirectToRoute('app_user_list');
-        }
 
         $em->remove($user);
         $em->flush();
@@ -140,6 +126,14 @@ class UserController extends AbstractController
             'success',
             'The user has been deleted successfully'
         );
+
+        if (!empty($user)) {
+            $this->addFlash(
+                "alert",
+                'There aren\'t users, please create an user!'
+            );
+            return $this->redirectToRoute('app_user_register');
+        }
         return $this->redirectToRoute('app_user_list');
     }
 

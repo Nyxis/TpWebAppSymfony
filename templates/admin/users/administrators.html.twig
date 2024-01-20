@@ -27,5 +27,8 @@
             {% endfor %}
             </tbody>
         </table>
+        <a href="{{ path('app_user_superAdmin') }}" class="bg-blue-500 text-white py-2 px-4 rounded">Super Administrators</a>
+        <a href="{{ path('app_ordinary_user') }}" class="bg-blue-500 text-white py-2 px-4 rounded">Ordinary Users</a>
+        <a href="{{ path('app_user_list') }}" class="bg-blue-500 text-white py-2 px-4 rounded"> See All Users</a>
     </div>
 {% endblock %}
