@@ -26,9 +26,11 @@ class UserManagerController extends AbstractController
         if (!$request->isMethod('DELETE') && !$request->isMethod('PUT'))
             $message = "créez, éditez ou supprimez des utilisateurs";
 
+
         return $this->render('admin/users.html.twig', [
-            'userslist' => $usersList,
+            'usersList' => $usersList,
             'message' => $message
+
         ]);
     }
 
@@ -52,7 +54,7 @@ class UserManagerController extends AbstractController
         }
         return $this->render('admin/users.html.twig', [
             'message' => $message,
-            'userslist' => $usersList
+            'usersList' => $usersList
         ]);
     }
 
@@ -71,7 +73,7 @@ class UserManagerController extends AbstractController
             $usersList = $userDoctrineRepository->findAll();
             $message = "utilisateur mis à jour avec succès";
             return $this->render('/admin/users.html.twig', [
-                'userslist' => $usersList, 'message' => $message
+                'usersList' => $usersList, 'message' => $message
             ]);
         }
         return $this->render('admin/update.html.twig', ['form' => $form->createView()]);
@@ -80,11 +82,11 @@ class UserManagerController extends AbstractController
     public function filterUsers( Request $request, UserDoctrineRepository $userDoctrineRepository, $role): Response
     {
 
-        $userslist = $userDoctrineRepository->findUsersByRole($role);
-        $message = 'liste des utilsateur avec role : ' . $role;
-        dump($userslist);
+        $usersList = $userDoctrineRepository->findUsersByRole($role);
+        $message = 'rôles affichés : ' . $role;
+        dump($usersList);
         return $this->render('admin/users.html.twig', [
-            'userslist' => $userslist,
+            'usersList' => $usersList,
             'message' => $message
         ]);
     }

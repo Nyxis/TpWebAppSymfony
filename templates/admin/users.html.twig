@@ -9,59 +9,75 @@
     <title>Document</title>
 </head>
 <body>
-<div class = "flex flex-row" style="flex-direction: row;">
-<form  action="/admin/users/filter/ROLE_USER" method="get">
-    <button class="bg-blue-500 flex" style="color: #3b82f6" type="submit">afficher les Roles USER</button>
-</form>
-<form  action="/admin/users/filter/ROLE_ADMIN" method="get">
-    <button class="bg-blue-500 flex" style="color: #3b82f6" type="submit">afficher les Roles ADMIN</button>
-</form>
-<form  action="/admin/users/filter/ROLE_SUPER_ADMIN" method="get">
-    <button class="bg-blue-500 flex" style="color: #3b82f6" type="submit">afficher les Roles SUPERADMIN</button>
-</form>
-</div>
+{% block body %}
+    <div class="flex flex-row" style="flex-direction: row;">
+        <form action="/admin/users/filter/ROLE_USER" method="get">
+            <button class="bg-blue-500 flex" style="color: #3b82f6" type="submit">afficher les Roles USER</button>
+        </form>
+        <form action="/admin/users/filter/ROLE_ADMIN" method="get">
+            <button class="bg-blue-500 flex" style="color: #3b82f6" type="submit">afficher les Roles ADMIN</button>
+        </form>
+        <form action="/admin/users/filter/ROLE_SUPER_ADMIN" method="get">
+            <button class="bg-blue-500 flex" style="color: #3b82f6" type="submit">afficher les Roles SUPERADMIN</button>
+        </form>
+        <form action="/admin/users" method="get">
+            <button type="submit">tout afficher</button>
+        </form>
+    </div>
+    <br><br>
+    <div>
+        <h3 class="text-red-500" style="color: firebrick"> ==== {{ message }} ==== </h3>
+    </div>
+    <br><br>
+    {# DEBUT TABLEAU USERS #}
+<div class="flex flex-col">
+    <div class="overflow-x-auto sm:mx-0.5 lg:mx-0.5">
+        <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
+            <div class="overflow-hidden">
+                <table class="min-w-full" style="border: solid 1px;  border-collapse: collapse;">
+        <caption class="bg-gray-200" style="color: #2d3748;">
+            LISTE DES UTILISATEURS
+        </caption>
 
-{#DEBUT TABLEAU USERS#}
-
-<table class="table-auto w-full border-solid border-gray-300" style="border-color: #151717; border-width: 2px; border-style: solid;"
->
-    <caption class="bg-gray-200" style="color: #2d3748;">
-        LISTE DES UTILISATEURS
-    </caption>
-
-    <thead >
-    <tr  >
-        <th >Prénom</th>
-        <th >Nom</th>
-        <th >Email</th>
-        <th colspan="2">Actions</th>
-    </tr>
-    </thead>
-
-    <tbody >
-
-    {% for user in userslist %}
-
+        <thead class="bg-white border-b" style="border: solid 2px;  border-collapse: collapse;">
         <tr>
-            <td>{{ user.firstname }}</td>
-
-            <td>{{ user.lastname }}</td>
-
-            <td>{{ user.email }}</td>
-
-            <td ></td>
-            <td><a  href="/admin/user/update/{{ user.id }}">MODIFIER</a> <span> ----  </span>
-                <a href="/admin/user/delete/{{ user.id }}">SUPPRIMER</a>
-            </td>
+            <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left" >Prénom</th>
+            <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">Nom</th>
+            <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">Email</th>
+            <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left" colspan="2">Actions</th>
         </tr>
-    {% endfor %}
+        </thead >
 
-    </tbody>
-</table>
-{#FIN TABLEAU USERS#}
+        <tbody >
+        {% set counter = 0 %}
+        {% for user in usersList %}
 
-<h2 class="mt-6"><a href="/admin/create" class="text-blue-600 hover:text-blue-800">Créer un nouvel utilisateur</a></h2>
+            <tr class="bg-white border-b" style="border: solid 1px;  border-collapse: collapse;">
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900" >{{ user.firstname }}</td>
 
-<h3 class="text-red-500" style="color: firebrick">{{ message }}</h3>
+                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap" >{{ user.lastname }}</td>
+
+                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ user.email }}</td>
+
+
+                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"><a href="/admin/user/update/{{ user.id }}">MODIFIER</a> <span> ----  </span>
+                    <a href="/admin/user/delete/{{ user.id }}">SUPPRIMER</a>
+                </td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+    {# FIN TABLEAU USERS #}
+
+    <h2 class="mt-6"><a href="/admin/create" class="text-blue-600 hover:text-blue-800">Créer un nouvel utilisateur</a>
+    </h2>
+
+{% endblock %}
+
 </body>
 </html>
