@@ -1,0 +1,16 @@
+{# admin/users/list.html.twig #}
+{% block content %}
+    <div>
+        <a href="{{ path('admin_users_create') }}">Créer</a>
+    </div>
+    
+    <div>
+        <a href="{{ path('admin_users', {'role': 'ROLE_USER'}) }}">Utilisateurs</a>
+        <a href="{{ path('admin_users', {'role': 'ROLE_ADMIN'}) }}">Administrateurs</a>
+        <a href="{{ path('admin_users') }}">Tous</a>
+    </div>
+    
+    <table>
+        {# ... Affichage de la liste des utilisateurs ... #}
+    </table>
+{% endblock %}
