@@ -1,0 +1,37 @@
+{# templates /admin/success.html.twig #}
+
+<!doctype html>
+<html lang="en">
+<head>
+    {% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('styles/app.css') }}">
+    {% endblock %}
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Success</title>
+</head>
+<body>
+
+<h1 class="text-grey-800 text-4xl text-center font-extrabold mt-20">CREATION DE USER : </h1>
+<h2 class="text-grey-800 text-4xl text-center font-extrabold mt-5 mb-5">{{message}}</h2>
+<div>
+    <div class="flex justify-center items-center">
+
+        <img src="{{ asset('images/solo.gif') }}" alt="Thrash Metal Admin">
+    </div>
+
+
+    <div class="flex flex-row space-x-4 justify-center  p-8" >
+        <form action="/admin/create" method="get">
+            <button class="bg-gray-200 p-8 mt-6" type="submit">Créer un nouvel utilisateur</button>
+        </form>
+        <form action="/admin/users" method="get">
+            <button class="bg-gray-200 p-8 mt-6" type="submit">voir les utilisateurs existants</button>
+        </form>
+    </div>
+
+</div>
+</body>
+</html>

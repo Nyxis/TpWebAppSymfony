@@ -1,0 +1,31 @@
+{# templates/auth/success.html.twig #}
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('styles/app.css') }}">
+    {% endblock %} <title>Success</title>
+</head>
+<body>
+{% block body %}
+
+    <h1 class="text-5xl font-bold text-center mt-20 mb-20  ">{{ welldone }}</h1>
+
+
+    <div class=" flex  space-x-4  justify-center ">
+
+        <img class="max-h-96 max-w-96" src="{{ asset('images/orson.jpg') }}" alt="Classe Americaine">
+
+        <form class="flex align-middle" action="{{ loginUrlRef }}" method="get">
+            <button class="bg-gray-200 p-8 text-4xl text-center " type="submit">se connecter en admin</button>
+        </form>
+    </div>
+{% endblock %}
+
+</body>
+</html>

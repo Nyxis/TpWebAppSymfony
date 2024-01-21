@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('styles/app.css') }}">
+    {% endblock %}
+    <title>Document</title>
+</head>
+<body>
+{% block body %}
+    <div class="flex flex-row space-x-4 justify-evenly  p-8" >
+        <form action="/admin/users/filter/ROLE_USER" method="get">
+            <button class="bg-gray-200 p-8"  type="submit">afficher les Roles USER</button>
+        </form>
+        <form action="/admin/users/filter/ROLE_ADMIN" method="get">
+            <button class="bg-gray-200 p-8"  type="submit">afficher les Roles ADMIN</button>
+        </form>
+        <form action="/admin/users/filter/ROLE_SUPER_ADMIN" method="get">
+            <button class="bg-gray-200 p-8"  type="submit">afficher les Roles SUPERADMIN</button>
+        </form>
+        <form action="/admin/users" method="get">
+            <button class="bg-gray-200 p-8"  type="submit">tout afficher</button>
+        </form>
+        <form action="/admin/create" method="get">
+            <button class="bg-gray-200 p-8 " type="submit">Créer un nouvel utilisateur</button>
+        </form>
+    </div>
+    <br><br>
+    <div>
+        <h3 class="text-red-800 text-2xl text-center font-extrabold" > ==== {{ message }} ==== </h3>
+    </div>
+    <br><br>
+    {# DEBUT TABLEAU USERS #}
+<div class="flex flex-col">
+    <div class="overflow-x-auto sm:mx-0.5 lg:mx-0.5">
+        <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
+            <div class="overflow-hidden">
+                <table class="min-w-full" style="border: solid 1px;  border-collapse: collapse;">
+        <caption class="bg-gray-200" style="color: #2d3748;">
+            LISTE DES UTILISATEURS
+        </caption>
+
+        <thead class="bg-white border-b" style="border: solid 2px;  border-collapse: collapse;">
+        <tr>
+            <th scope="col" class="text-sm font-bold text-gray-900 px-6 py-4 text-left" >Prénom</th>
+            <th scope="col" class="text-sm font-bold text-gray-900 px-6 py-4 text-left">Nom</th>
+            <th scope="col" class="text-sm font-bold text-gray-900 px-6 py-4 text-left">Email</th>
+            <th scope="col" class="text-sm font-bold text-gray-900 px-14 py-4 text-left">Rôles</th>
+            <th scope="col" class="text-sm font-bold text-gray-900 px-6 py-4 text-left" colspan="2">Actions</th>
+        </tr>
+        </thead >
+
+        <tbody >
+        {% set counter = 0 %}
+        {% for user in usersList %}
+
+            <tr class="bg-white border-b" style="border: solid 1px;  border-collapse: collapse;">
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-normal text-gray-900" >{{ user.firstname }}</td>
+
+                <td class="text-sm text-gray-900 font-normal px-6 py-4 whitespace-nowrap" >{{ user.lastname }}</td>
+
+                <td class="text-sm text-gray-900 font-normal px-6 py-4 whitespace-nowrap">{{ user.email }}</td>
+
+                <td class="text-sm text-pink-950 font-extrabold  px-2 py-4 whitespace-nowrap" >
+                {% if "ROLE_USER" in user.roles %} USER {% else %} &ensp;&ensp;| &ensp;&nbsp; {% endif %} <span> &ensp;</span>
+                {% if "ROLE_ADMIN" in user.roles %} ADMIN {% else %} &ensp;&ensp;&ensp; | &ensp;&ensp; {% endif %} <span> &ensp;</span>
+                {% if "ROLE_SUPER_ADMIN" in user.roles %} SUPERADMIN {% else %}&ensp;&ensp;&ensp; | &ensp;&ensp;&ensp;&ensp;{% endif %}<span>&ensp;</span></td>
+
+                <td class="text-sm text-red-800 font-medium px-6 py-4 whitespace-nowrap"><a href="/admin/user/update/{{ user.id }}">MODIFIER</a> <span> ----  </span>
+                    <a href="/admin/user/delete/{{ user.id }}">SUPPRIMER</a>
+                </td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+    {# FIN TABLEAU USERS #}
+<div class="flex flex-row space-x-4 justify-evenly  p-8" >
+    <form action="/admin/login" method="get">
+        <button class="bg-gray-200 p-8 mt-6" type="submit">changer de compte</button>
+    </form>
+
+    </div>
+{% endblock %}
+
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+    {% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('styles/app.css') }}">
+    {% endblock %}
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+
+    <h1 class="text-red-800 text-4xl text-center font-extrabold mt-20" >Aucun utilisateur n'est présent dans la liste</h1>
+    <div class="flex flex-row space-x-4 justify-center  p-8" >
+    <form action="/admin/create" method="get">
+        <button class="bg-gray-200 p-8 mt-6" type="submit">Créer un nouvel utilisateur</button>
+    </form>
+        </div>
+</body>
+</html>

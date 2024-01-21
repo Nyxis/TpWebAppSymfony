@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    {% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('styles/app.css') }}">
+    {% endblock %}
+    <title>Document</title>
+</head>
+<body>
+{% block body %}
+
+
+    <div class="flex flex-row space-x-4 justify-evenly  p-8" >
+
+        {{ form_start(form) }}
+
+        {{ form_row(form.firstname) }}
+        {{ form_row(form.lastname) }}
+
+        {{ form_row(form.email) }}
+        {{ form_row(form.password) }}
+
+        {{ form_row(form.roles) }}
+
+        <div class="bg-gray-200 px-32 py-4 ;"  >{{ form_row(form.create) }} </div>
+
+        {{ form_end(form) }}
+
+    </div>
+
+
+{% endblock %}
+
+</body>
+</html>
