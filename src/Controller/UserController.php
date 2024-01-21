@@ -59,6 +59,7 @@ class UserController extends AbstractController
             $emails = $userRepository->findAllEmails();
             //var_dump($email, $emails);
             $emailExists = false;
+            //In fact, we can achieve that in the User entity by defining the email as unique. However, here, I am only performing email validation.
             foreach ($emails as $existingEmail) {
                 if ($email === $existingEmail['email']) {
                     $emailExists = true;
@@ -67,11 +68,7 @@ class UserController extends AbstractController
             }
             if ($emailExists) {
                 $this->addFlash('error', 'The user with this email is already registered.');
-                // on ne peut pas faire une inscription (We cannot proceed with registration)
             } else {
-                //$roles = $form->get('roles')->getData();
-               // $user->setRoles($roles);
-
                 $passwordHash = $hasher->hashPassword($user, $user->getPassword());
                 $user->setPassword($passwordHash);
 
