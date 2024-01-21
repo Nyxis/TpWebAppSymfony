@@ -16,6 +16,7 @@ security:
             entity:
                 class: App\Security\User
                 property: email
+
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
