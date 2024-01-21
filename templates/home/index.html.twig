@@ -1,9 +1,20 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
+
+ {% block head %}
+           {% block title %}Hello HomeController!{% endblock %}
+           <script src="https://cdn.tailwindcss.com"></script>
+     
+        {% endblock %}
 
 {% block body %}
-<link rel="stylesheet" href="{{asset('style.css')}}">
 
-<a href="{{ path('app_login')}}">LOGIN</a>
+<script src="https://cdn.tailwindcss.com"></script>
+<body class="bg-gray-200">
+<form class=" text-center" action="/admin/login" method="get">
+    <button  class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"type="submit">Login</button>
+</form>
+
+<img class="m-auto" src="https://media.giphy.com/media/mP8YqtjCNOB9HLyrn0/giphy.gif" alt="">
+</body>
 {% endblock %}

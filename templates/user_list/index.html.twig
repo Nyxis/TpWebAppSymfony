@@ -3,20 +3,45 @@
 {% block title %}Hello UserListController!{% endblock %}
 
 {% block body %}
-<link rel="stylesheet" href="{{asset('style.css')}}">
-{% for user in users %}
-  <p>{{user.firstname}}</p>
-  <p>{{user.lastname}}</p>
-  <p>{{user.email}}</p> 
-  <p>{{user.roles}}</p> 
 
-<button onclick="window.location.href='#'">
-  editer un utilisateur
-</button>
-<button onclick="window.location.href='#'">
-  supprimer un utilisateur
-</button>
-  
- 
-{% endfor %}
+<script src="https://cdn.tailwindcss.com"></script>
+<body class="bg-orange-100">
+
+
+
+<div class="w-3/5 mx-auto">
+  <div class="bg-white shadow-md rounded my-6">
+    <table class="text-left w-full border-collapse"> <!--Border collapse doesn't work on this site yet but it's available in newer tailwind versions -->
+      <thead>
+        <tr>
+          <th class="py-4 px-6 bg-grey-lightest font-bold uppercase text-sm text-grey-dark border-b border-grey-light">firstname</th>
+          <th class="py-4 px-6 bg-grey-lightest font-bold uppercase text-sm text-grey-dark border-b border-grey-light">lastname</th>
+          <th class="py-4 px-6 bg-grey-lightest font-bold uppercase text-sm text-grey-dark border-b border-grey-light">Role</th>
+          <th class="py-4 px-6 bg-grey-lightest font-bold uppercase text-sm text-grey-dark border-b border-grey-light">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="hover:bg-grey-lighter">
+        {% for user in users %}
+          <td class="py-4 px-6 border-b border-grey-light"> <p>{{user.firstname}}</p></td>
+          <td class="py-4 px-6 border-b border-grey-light"> <p>{{user.lastname}}</p></td>
+          <td class="py-4 px-6 border-b border-grey-light"> <p>{{user.roles}}</p></td>
+          
+          <td class="py-4 px-6 border-b border-grey-light flex">
+           <form action="/update/user/{{ user.id }}" method="get">
+            <button  class="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"type="submit">EDIT</button>
+          </form>
+          <form action="/remove/user/{{ user.id }}" method="get">
+            <button  class="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"type="submit">DELETE</button>
+          </form>
+          </td>
+           
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+</body>
+
 {% endblock %}

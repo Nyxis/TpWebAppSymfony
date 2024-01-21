@@ -21,8 +21,15 @@ protected string $email;
 # [ORM\Column(type: 'string')]
 protected string $roles;
 
+    public function getId(): string
+    {
+        return $this->id;
+    }
 
-   
+    public function setId(string $id): void
+    {
+        $this->id = $id;
+    }
 
     public function getFirstName(): string
     {

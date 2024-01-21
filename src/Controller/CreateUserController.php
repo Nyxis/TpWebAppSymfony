@@ -16,25 +16,29 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class CreateUserController extends AbstractController
 {
-    #[Route('/create/user', name: 'app_create_user')]
+    #[Route('admin/create/user', name: 'app_create_user')]
     public function new(Request $request, EntityManagerInterface $em, UserPasswordHasherInterface $hasher): Response
     {
         $user = new User();
    
    
-
+        
+        
         $form = $this->createForm(UserType::class, $user);
 
         $form->handleRequest($request);
+   
+       
         if ($form->isSubmitted() && $form->isValid()) {
-          
+
+            
             $passwordHasher = $hasher->hashPassword($user, $user->getPassword());
             $user->setPassword($passwordHasher);
             $user = $form->getData();
 
             $em->persist($user);
             $em->flush();
-           
+          
 
             return $this->redirectToRoute('app_create_user_success');
         }
@@ -45,4 +49,19 @@ class CreateUserController extends AbstractController
             'form' => $form,
         ]);
     }
+
+
+#[Route('/update/user/{id}', name: 'app_update_user', methods: ['GET'])]
+public function editUser($id, EntityManagerInterface $em, UserRepository $userRepository): Response
+{
+    $user = $userRepository->find($id);
+
+   
+
+    return $this->render('Update/e.html.twig', [
+        'users' => $user,
+    ]);
 }
+
+}
+
