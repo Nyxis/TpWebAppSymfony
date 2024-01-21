@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CreateUserSuccessController!{% endblock %}
+
+{% block body %}
+
+
+
+
+<script src="https://cdn.tailwindcss.com"></script>
+<body class="bg-gray-200">
+<p class="text-center">BRAVO L'UTILISATEUR A ETE CREE</p>
+<form class=" text-center" action="/admin/user/list" method="get">
+    <button  class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"type="submit">Voir la liste des utilisateurs</button>
+</form>
+
+<img class="m-auto" src="https://media.giphy.com/media/ui1hpJSyBDWlG/giphy.gif" alt="">
+</body>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AdminController!{% endblock %}
+
+{% block body %}
+<script src="https://cdn.tailwindcss.com"></script>
+
+<body class="bg-gray-200">
+<form class=" text-center" action="/admin/user/list" method="get">
+    <button  class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"type="submit">Voir la liste des utilisateurs</button>
+</form>
+<form class=" text-center" action="/admin/create/user" method="get">
+    <button  class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"type="submit"> Créer un utilisateur</button>
+</form>
+    <img class="m-auto" src="https://media.giphy.com/media/Id6dC0GQOOzPMXgcPv/giphy.gif" alt="">
+ 
+ </body>
+{% endblock %}

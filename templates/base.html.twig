@@ -12,7 +12,10 @@
 {% block importmap %}{{ importmap('app') }}{% endblock %}
         {% endblock %}
     </head>
+    
     <body>
+    <!-- <h1>{{app.user ? 'log' : 'pas log'}}</h1> -->
+    
         {% block body %}{% endblock %}
     </body>
 </html>

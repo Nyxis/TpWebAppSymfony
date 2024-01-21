@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CreateUserController!{% endblock %}
+
+{% block body %}
+<link rel="stylesheet" href="{{asset('style.css')}}">
+Formulaire pour créer un utilisateur
+{{ form(form) }}
+
+{% endblock %}
