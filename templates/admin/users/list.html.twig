@@ -1,0 +1,69 @@
+{% extends 'admin/users/_layout.html.twig' %}
+
+{% block title %}
+    Users list
+{% endblock %}
+
+{% block body %}
+<div class="container mx-auto mt-8 flex  flex-col justify-center items-center">
+    <div class="max-w-lg">
+        {% for message in app.flashes('success') %}
+            <div class="bg-green-500 text-white p-4 mb-4 rounded">{{ message }}</div>
+        {% endfor %}
+
+        {% for message in app.flashes('error') %}
+            <div class="bg-red-500 text-white p-4 mb-4 rounded">{{ message }}</div>
+        {% endfor %}
+
+        <h1 class="text-2xl font-bold mb-4">Users list</h1>
+        <div class="count mb-4">
+            <h2>There are {{ users.getTotalItemCount }} users in the list </h2>
+        </div>
+        <div>
+        <a href="{{ path('app_user_superAdmin') }}" class="bg-blue-500 text-white py-2 px-4 rounded">Super Administrators</a>
+        <a href="{{ path('app_user_admin') }}" class="bg-blue-500 text-white py-2 px-4 rounded">Administrators</a>
+        <a href="{{ path('app_ordinary_user') }}" class="bg-blue-500 text-white py-2 px-4 rounded">Ordinary Users</a>
+        </div>
+        <table class="mt-4">
+            <thead>
+            <tr class="bg-gray-200">
+                <th class="py-2 px-4">UserId</th>
+                <th class="py-2 px-4">Firstname</th>
+                <th class="py-2 px-4">Lastname</th>
+                <th class="py-2 px-4">Email</th>
+                <th class="py-2 px-4">Roles</th>
+                <th class="py-2 px-4">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for user in users %}
+                <tr class="border-b">
+                    <td class="py-2 px-4">{{ user.id }}</td>
+                    <td class="py-2 px-4">{{ user.firstname }}</td>
+                    <td class="py-2 px-4">{{ user.lastname }}</td>
+                    <td class="py-2 px-4">{{ user.email }}</td>
+                    <td class="py-2 px-4">
+                        {% for role in user.roles %}
+                            <span class="inline-block bg-gray-300 rounded-full px-2 py-1 text-sm font-semibold text-gray-700 mr-2">{{ role }}</span>
+                        {% endfor %}
+                    </td>
+                    <td class="py-2 px-4">
+                        <a href="{{ path('app_user_show', { 'id':user.id}) }}" class="bg-blue-500 text-white py-2 px-4 rounded">See details</a>
+                        <a href="{{ path('app_user_edit', { id: user.id }) }}" class="bg-green-500 text-white py-2 px-4 rounded">Edit</a>
+                        <a href="{{ path('app_user_delete', { id: user.id }) }}" class="bg-red-500 text-white py-2 px-4 rounded">Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+       <div class="mt-4">
+        <a href="{{ path('app_user_register') }}" class="bg-blue-500 text-white py-2 px-4 rounded">Add an user</a>
+           <div class="navigation flex justify-center mb-8">
+               {{ knp_pagination_render(users) }}
+           </div>
+       </div>
+    </div>
+
+</div>
+{% endblock %}
+

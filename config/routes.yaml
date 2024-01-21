@@ -3,3 +3,22 @@ controllers:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
+    
+login_check:
+    path: /login
+    methods: ['POST']
+
+#admin area
+
+#_users:
+    #resource:routes/users.yaml
+    #prefix:/admin/users
+    #name_prefix: user_
+
+#security
+#_security:
+    #resource: routes/security.yaml
+    #prefix:/admin
+
+#homapage:
+    #path: /
