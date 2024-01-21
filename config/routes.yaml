@@ -1,5 +1,38 @@
-controllers:
-    resource:
-        path: ../src/Controller/
-        namespace: App\Controller
-    type: attribute
+
+user_edit:
+    path: /admin/users/{id}/edit
+    controller: App\Controller\UserController::user_edit
+user_save:
+    path: /admin/users/{id}/save
+    controller: App\Controller\UserController::user_save
+user_delete:
+    path: /admin/users/{id}/delete
+    controller: App\Controller\UserController::user_delete
+user_list_role:
+    path: /admin/users/{role}
+    controller: App\Controller\UserController::user_list_role
+login:
+    path: /admin/login
+    controller: App\Controller\LoginController::login
+login_check:
+    path: /admin/login_check
+logout:
+    path: /admin/logout
+user_create:
+    path: /admin/user-create
+    controller: App\Controller\UserController::user_create
+user_check:
+    path: /admin/user-check
+    controller: App\Controller\UserController::user_check
+user_list:
+    path: /admin/users
+    controller: App\Controller\UserController::user_list
+admin:
+    path: /admin
+    controller: App\Controller\AdminController::admin
+mj:
+    path: /mj
+    controller: App\Controller\MjController::mj
+home:
+    path: /
+    controller: App\Controller\MjController::home
