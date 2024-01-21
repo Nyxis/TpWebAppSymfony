@@ -63,9 +63,9 @@
                 <td class="text-sm text-gray-900 font-normal px-6 py-4 whitespace-nowrap">{{ user.email }}</td>
 
                 <td class="text-sm text-pink-950 font-extrabold  px-2 py-4 whitespace-nowrap" >
-                {% if "ROLE_USER" in user.roles %} USER {% else %} &ensp;&ensp;&ensp;&ensp;&ensp; {% endif %} <span> &ensp;</span>
-                {% if "ROLE_ADMIN" in user.roles %} ADMIN {% else %} &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp; {% endif %} <span> &ensp;</span>
-                {% if "ROLE_SUPER_ADMIN" in user.roles %} SUPERADMIN {% else %}{% endif %}<span>&ensp;</span></td>
+                {% if "ROLE_USER" in user.roles %} USER {% else %} &ensp;&ensp;| &ensp;&nbsp; {% endif %} <span> &ensp;</span>
+                {% if "ROLE_ADMIN" in user.roles %} ADMIN {% else %} &ensp;&ensp;&ensp; | &ensp;&ensp; {% endif %} <span> &ensp;</span>
+                {% if "ROLE_SUPER_ADMIN" in user.roles %} SUPERADMIN {% else %}&ensp;&ensp;&ensp; | &ensp;&ensp;&ensp;&ensp;{% endif %}<span>&ensp;</span></td>
 
                 <td class="text-sm text-red-800 font-medium px-6 py-4 whitespace-nowrap"><a href="/admin/user/update/{{ user.id }}">MODIFIER</a> <span> ----  </span>
                     <a href="/admin/user/delete/{{ user.id }}">SUPPRIMER</a>
