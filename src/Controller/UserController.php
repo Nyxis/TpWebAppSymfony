@@ -122,14 +122,22 @@ class UserController extends AbstractController
         }
 
         return $this->render('admin/users/edit.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'user' => $user
         ]);
     }
 
     #[Route('/admin/users/delete/{id} ', name: 'app_user_delete', methods: ['GET'])]
     public function deleteUser($id, EntityManagerInterface $em): Response
     {
-        $user = $em->getRepository(User::class)->findOneBy(['id' => $id]);;
+        $user = $em->getRepository(User::class)->findOneBy(['id' => $id]);
+        if (!$user) {
+            $this->addFlash(
+                'Success',
+                'Don\'t find user in question!'
+            );
+            return $this->redirectToRoute('app_user_list');
+        }
 
         $em->remove($user);
         $em->flush();
@@ -139,13 +147,6 @@ class UserController extends AbstractController
             'The user has been deleted successfully'
         );
 
-        if (!empty($user)) {
-            $this->addFlash(
-                "alert",
-                'There aren\'t users, please create an user!'
-            );
-            return $this->redirectToRoute('app_user_register');
-        }
         return $this->redirectToRoute('app_user_list');
     }
 
