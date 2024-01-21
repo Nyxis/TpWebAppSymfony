@@ -69,6 +69,7 @@ class UserManagerController extends AbstractController
             $hashedPass = $userPasswordHasher->hashPassword($user, $user->getPassword());
             $user->setPassword($hashedPass);
             $entityManager->flush();
+            $entityManager->refresh($user);
             $usersList = $userDoctrineRepository->findAll();
             $message = "utilisateur mis à jour avec succès";
             return $this->render('/admin/users.html.twig', [
