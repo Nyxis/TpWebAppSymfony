@@ -1,0 +1,32 @@
+{% extends 'admin/users/_layout.html.twig' %}
+
+{% block title %}
+	User Information
+{% endblock %}
+
+{% block body %}
+	<div class="flex items-center justify-center h-screen mt-8">
+		<div class="max-w-sm rounded overflow-hidden shadow-lg">
+			<div class="px-6 py-4 mt-4">
+				<div class="font-bold text-xl mb-2">User Information</div>
+				<p class="text-gray-700 text-base">Firstname: {{ user.firstname }}</p>
+				<p class="text-gray-700 text-base">Lastname: {{ user.lastname }}</p>
+				<p class="text-gray-700 text-base">Email: {{ user.email }}</p>
+				{% for role in user.roles %}
+					<p class="text-gray-700 text-base">Role: {{ role }}</p>
+				{% endfor %}
+			</div>
+			<div class="px-6 pt-4 pb-2 mt-4">
+				<a href="{{ path('app_user_edit', { id: user.id }) }}" class="inline-block bg-green-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Edit</a>
+				<a href="{{ path('app_user_delete', { id: user.id }) }}" class="inline-block bg-red-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Delete</a>
+			</div>
+			<p class="mt-4 block text-center font-sans text-base font-normal leading-relaxed text-gray-700 antialiased">
+				Back to list
+				<a href="{{ path('app_user_list') }}" class="bg-blue-500 text-white py-2 px-4 rounded mt-4 hover:bg-blue-700">See All Users</a>
+			</p>
+		</div>
+	</div>
+{% endblock %}
+
+
+

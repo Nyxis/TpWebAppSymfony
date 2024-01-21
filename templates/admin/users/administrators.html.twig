@@ -1,0 +1,38 @@
+{% extends 'admin/users/_layout.html.twig' %}
+
+{% block title %}
+    Administrator
+{% endblock %}
+
+{% block body %}
+<div class="container mx-auto mt-8 flex  flex-col justify-center items-center p-4">
+    <div class="p-4">
+        <h1 class="text-2xl font-bold mb-4">Administrator</h1>
+        <table class="mt-4">
+            <thead>
+            <tr class="bg-gray-200">
+                <th class="py-2 px-4">UserId</th>
+                <th class="py-2 px-4">Firstname</th>
+                <th class="py-2 px-4">Lastname</th>
+                <th class="py-2 px-4">Email</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for user in users %}
+                <tr class="border-b">
+                    <td class="py-2 px-4">{{ user.id }}</td>
+                    <td class="py-2 px-4">{{ user.firstname }}</td>
+                    <td class="py-2 px-4">{{ user.lastname }}</td>
+                    <td class="py-2 px-4">{{ user.email }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <div class="mt-4">
+        <a href="{{ path('app_user_superAdmin') }}" class="bg-blue-500 text-white py-2 px-4 rounded">Super Administrators</a>
+        <a href="{{ path('app_ordinary_user') }}" class="bg-blue-500 text-white py-2 px-4 rounded">Ordinary Users</a>
+        <a href="{{ path('app_user_list') }}" class="bg-blue-500 text-white py-2 px-4 rounded"> See All Users</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
