@@ -1,0 +1,16 @@
+{# templates/security/index.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h2>Login</h2>
+    <form action="{{ path('app_login_check') }}" method="post">
+        <label for="email">Email:</label>
+        <input type="text" id="email" name="_username" required>
+
+        <label for="password">Mot de passe:</label>
+        <input type="password" id="password" name="_password" required>
+
+        <button type="submit">Se connecter</button>
+    </form>
+{% endblock %}

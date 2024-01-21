@@ -5,13 +5,33 @@ security:
     # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
     providers:
         users_in_memory: { memory: null }
+        backend_users:
+            memory:
+                users:
+                    ianadou807@gmai.com: { password: '$2y$13$I1Zq5SIpp9CoDkHlu1WV5eqmcX5R.DRWOaN5zDd1zYcae9sMR9QbK', roles: ['ROLE_ADMIN'] }
+                    jade@gmail.com: { password: '$2y$13$I1Zq5SIpp9CoDkHlu1WV5eqmcX5R.DRWOaN5zDd1zYcae9sMR9QbK', roles: [ 'ROLE_USER' ] }
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
             lazy: true
-            provider: users_in_memory
+            provider: backend_users
+            form_login:
+                login_path: login
+                check_path: login_check
+                
+        admin:
+            pattern: ^/admin
+            provider: backend_users
+            form_login:
+                login_path: admin_login
+                check_path: admin_login_check
+                default_target_path: app_admin
+                always_use_default_target_path: true
+            logout:
+                path: admin_logout
+                target: main_homepage
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
