@@ -3,3 +3,12 @@ controllers:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
+
+
+login_form:
+    path: /login
+    controller: App\Controller\LoginController::showLoginForm
+
+
+login_check:
+    path: /login_check
