@@ -9,9 +9,9 @@
     <h2>Welcome to Admin Dashboard</h2>
 
     {% if user %}
-        <p>Hello, {{ user.username }}!</p>
+        <p>user, {{ user.username }}!</p>
         <p>Email: {{ user.email }}</p>
-        {# Ajoutez d'autres informations de l'utilisateur selon vos besoins #}
+       
     {% else %}
         <p>You are not logged in.</p>
     {% endif %}
