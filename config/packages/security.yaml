@@ -40,3 +40,13 @@ when@test:
                 cost: 4 # Lowest possible value for bcrypt
                 time_cost: 3 # Lowest possible value for argon
                 memory_cost: 10 # Lowest possible value for argon
+
+admin:
+            pattern: ^/admin
+            provider: app_user
+            form_login:
+                login_path: admin_login
+                check_path: admin_login_check
+                default_target_path: admin_dashboard
+    access_control:
+        - { path: ^/admin, roles: ROLE_ADMIN }
