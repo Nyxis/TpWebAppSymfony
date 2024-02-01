@@ -1,0 +1,22 @@
+
+{# templates/login/login.html.twig #}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login Form</title>
+</head>
+<body>
+    <h2>Login Form</h2>
+
+    <form action="{{ path('login_check') }}" method="post">
+        <label for="email">Email:</label>
+        <input type="text" id="email" name="_email" required>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="_password" required>
+
+        <button type="submit">Login</button>
+    </form>
+</body>
+</html>

@@ -24,7 +24,10 @@ security:
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
-
+          
+            form_login:
+                login_path: login_form
+                check_path: login_check
 when@test:
     security:
         password_hashers:
