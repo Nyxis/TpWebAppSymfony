@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <h1 class="text-center">Hello login page! ✅</h1>
+    <div class="flex items-center justify-center p-12">
+        <div class="max-w-md mt-5">
+            <form action="{{ path('app_login') }}" method="POST">
+                <div class="mb-5">
+                    <label for="email"
+                           class="mb-3 block text-base font-medium text-[#07074D]">
+                        Email Address
+                    </label>
+                    <input
+                        type="email"
+                        name="_username"
+                        id="email"
+                        placeholder="example@domain.com"
+                        class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium
+                        text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+                    />
+                </div>
+                <div class="mb-5">
+                    <label
+                        for="password"
+                        class="mb-3 block text-base font-medium text-[#07074D]"
+                    >
+                        Password
+                    </label>
+                    <input
+                        type="password"
+                        name="_password"
+                        id="password"
+                        placeholder="*******"
+                        class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium
+                        text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+                    />
+                </div>
+                <div>
+                    <button class="middle none center mr-4 rounded-lg bg-blue-400 py-3 px-6 font-sans text-xs font-bold uppercase text-white shadow-md shadow-blue-500/20 transition-all hover:shadow-lg hover:shadow-blue-500/40
+                      focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none
+                       disabled:opacity-50 disabled:shadow-none">
+                        Submit
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
